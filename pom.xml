@@ -9,6 +9,7 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>freework-job</module>
+    <module>freework-common</module>
   </modules>
   <packaging>pom</packaging>
 
