@@ -25,27 +25,25 @@ public class RoleController {
     @PostMapping("/add")
     public Result insert(@RequestBody Role role){
         boolean flag = roleService.save(role);
-        if (flag) {
-            return Result.ok();
-        }else {
-            return Result.error().msg("插入失败");
-        }
-    }
-
-    @GetMapping("/findAll")
-    public Result<List<Role>> findAll(){
-        List<Role> list = roleService.list(null);
-        if (!CollectionUtils.isEmpty(list)){
-            return new Result<>(200, "成功", list);
-        }else {
-            return Result.error();
-        }
+        return Result.ok();
     }
 
     @DeleteMapping("/remove/{id}")
     public Result remove(@PathVariable Long id){
         roleService.removeById(id);
         return Result.ok();
+    }
+
+    @PostMapping("/update")
+    public Result update(@RequestBody Role role){
+        roleService.updateById(role);
+        return Result.ok();
+    }
+
+    @GetMapping("/findAll")
+    public Result<List<Role>> findAll(){
+        List<Role> list = roleService.list(null);
+        return new Result<>(200, "成功", list);
     }
 }
 

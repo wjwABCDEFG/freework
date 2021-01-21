@@ -4,7 +4,7 @@
 .gradle
 .settings
 .iml
-/out
-/build/
-/logs/
+out
+build/
+logs/
 target/
