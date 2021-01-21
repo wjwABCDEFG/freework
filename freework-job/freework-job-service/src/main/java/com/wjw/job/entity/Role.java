@@ -27,6 +27,7 @@ public class Role extends BaseDomain implements Serializable {
 
     @ApiModelProperty(value = "角色ID")
     @TableId(value = "id", type = IdType.ID_WORKER)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     @ApiModelProperty(value = "角色名称")
