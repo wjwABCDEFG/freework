@@ -3,6 +3,7 @@ package com.wjw.job;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author wjw
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("com.wjw.job.mapper")
+@ComponentScan(basePackages = {"com.wjw"})
 public class FreeworkJobApplication {
 
     public static void main(String[] args) {

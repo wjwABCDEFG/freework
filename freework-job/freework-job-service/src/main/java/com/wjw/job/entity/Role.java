@@ -36,6 +36,7 @@ public class Role extends BaseDomain implements Serializable {
     private String remark;
 
     @ApiModelProperty(value = "0可用 1不可用")
+    @TableLogic
     private Integer status;
 
 }
