@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2021/4/8 0:57
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/job/company")
 public class CompanyController {
 

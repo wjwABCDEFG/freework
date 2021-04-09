@@ -40,9 +40,9 @@ public class RoleController {
     }
 
     @GetMapping("/findAll")
-    public Result<List<Role>> findAll(){
+    public Result findAll(){
         List<Role> list = roleService.list(null);
-        return new Result<>(200, "成功", list);
+        return new Result(200, "成功", list);
     }
 }
 

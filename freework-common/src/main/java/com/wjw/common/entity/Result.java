@@ -4,12 +4,15 @@ import com.wjw.common.enums.ErrCodeEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author wjw
  * @date 2021/1/21 17:30
  */
 @Data
-public class Result<T> {
+public class Result {
 
     @ApiModelProperty(value = "状态码")
     private Integer code;
@@ -18,7 +21,7 @@ public class Result<T> {
     private String msg;
 
     @ApiModelProperty(value = "返回数据")
-    private T data;
+    private Object data;
 
     public Result() {
     }
@@ -28,7 +31,7 @@ public class Result<T> {
         this.msg = msg;
     }
 
-    public Result(Integer code, String msg, T data) {
+    public Result(Integer code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -53,8 +56,15 @@ public class Result<T> {
         return this;
     }
 
-    public Result data(T data){
+    public Result data(Object data){
         this.data = data;
+        return this;
+    }
+
+    public Result data(String key, String value){
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, value);
+        this.data = map;
         return this;
     }
 
