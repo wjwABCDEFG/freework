@@ -5,7 +5,6 @@ import com.wjw.common.entity.Result;
 import com.wjw.job.entity.Role;
 import com.wjw.job.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +22,8 @@ public class RoleController {
     private RoleService roleService;
 
     @PostMapping("/add")
-    public Result insert(@RequestBody Role role){
-        boolean flag = roleService.save(role);
+    public Result addRole(@RequestBody Role role){
+        roleService.save(role);
         return Result.ok();
     }
 

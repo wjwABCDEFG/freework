@@ -3,12 +3,12 @@ package com.wjw.job.config;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -46,5 +46,11 @@ public class MpConfig implements MetaObjectHandler {
         performanceInterceptor.setMaxTime(1000);//ms，超过此处设置的ms则sql不执行
         performanceInterceptor.setFormat(true);
         return performanceInterceptor;
+    }
+
+    //分页插件
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
     }
 }

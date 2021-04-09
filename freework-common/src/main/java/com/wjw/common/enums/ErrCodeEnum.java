@@ -10,6 +10,9 @@ public enum ErrCodeEnum {
     SUCCESS(2000, "成功"),
     ERROR(5000, "失败"),
 
+    //==========================================登录相关
+    TOKENINVALID(6001, "登录令牌无效"),
+    TOKENEXPIRED(6002, "登录信息过期")
     ;
 
     private Integer errCode;

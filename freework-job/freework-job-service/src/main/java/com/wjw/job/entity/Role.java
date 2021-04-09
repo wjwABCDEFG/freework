@@ -16,14 +16,9 @@ import lombok.experimental.Accessors;
  * @author wjw
  * @since 2021-01-21
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("tb_role")
 @ApiModel(value="Role对象", description="")
-public class Role extends BaseDomain implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Role extends BaseDomain {
 
     @ApiModelProperty(value = "角色ID")
     @TableId(value = "id", type = IdType.ID_WORKER)
@@ -40,4 +35,35 @@ public class Role extends BaseDomain implements Serializable {
     @TableLogic
     private Integer status;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }
