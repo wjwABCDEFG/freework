@@ -2,7 +2,9 @@ package com.wjw.job.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wjw.common.entity.Result;
+import com.wjw.common.utils.JsonUtil;
 import com.wjw.job.entity.Company;
+import com.wjw.job.entity.vo.CompanyQuery;
 import com.wjw.job.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +39,18 @@ public class CompanyController {
         return Result.ok();
     }
 
-    @GetMapping("/findPage/{pageNum}/{pageSize}")
-    public Result findAllCompany(@PathVariable long pageNum, @PathVariable long pageSize){
+    @PostMapping("/findPage/{pageNum}/{pageSize}")
+    public Result pageCompany(@PathVariable long pageNum,
+                              @PathVariable long pageSize,
+                              @RequestBody(required = false) CompanyQuery companyQuery){
         Page<Company> pageInfo = new Page<>(pageNum, pageSize);
-        companyService.page(pageInfo, null);
+        companyService.pageQuery(pageInfo, companyQuery);
         return Result.ok().data(pageInfo);
+    }
+
+    @GetMapping("/static")
+    public Result updateCompany(String fileName){
+        String res = JsonUtil.readJsonStrFromFile(fileName);
+        return Result.ok().data(res);
     }
 }

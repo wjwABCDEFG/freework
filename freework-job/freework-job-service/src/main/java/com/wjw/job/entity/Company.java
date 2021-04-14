@@ -5,11 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -28,6 +24,8 @@ public class Company extends BaseDomain {
     private String scale;               // 规模
     private String logo;                // logo
     private String companyDesc;         // 公司简介
+    private int workDay;                // 工作日
+    private String workTime;            // 工作时间
     private String license;             // 执照
     private String representative;      // 法定代表人
     private Double registeredCapital;   // 注册资本，单位：万元
@@ -90,6 +88,22 @@ public class Company extends BaseDomain {
 
     public void setCompanyDesc(String companyDesc) {
         this.companyDesc = companyDesc;
+    }
+
+    public int getWorkDay() {
+        return workDay;
+    }
+
+    public void setWorkDay(int workDay) {
+        this.workDay = workDay;
+    }
+
+    public String getWorkTime() {
+        return workTime;
+    }
+
+    public void setWorkTime(String workTime) {
+        this.workTime = workTime;
     }
 
     public String getLicense() {

@@ -3,9 +3,6 @@ package com.wjw.job.controller;
 import com.wjw.common.entity.Result;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author wjw
  * @date 2021/4/9 18:48
