@@ -35,7 +35,7 @@
     </el-form-item>
     <el-form-item label="工作日">
         <el-slider
-          v-model="companyInfo.workDay"
+          v-model="workdays"
           range
           show-stops
           :min="1"
@@ -101,6 +101,7 @@
 
 <script>
   import { regionDataPlus, CodeToText } from 'element-china-area-data'
+  import { slideToStr } from '@/utils/workday'
 
   export default {
     data() {
@@ -112,6 +113,7 @@
         address: regionDataPlus,
         industry: [],
         selectedAddress: [],
+        workdays: [1, 1],
         workTimes: '',
         workDayMarks: {
           1: '一',
@@ -146,19 +148,25 @@
     methods: {
       save(){
         this.companyInfo.workTime = this.workTimes.join("-")
-        console.log(this.companyInfo);
-        // this.$http.post(`http://localhost:9000/job/company/add`, this.companyInfo).then((resp)=>{
-        //   console.log(resp.data);
-        //   if(resp.data.code != 2000){
-        //     //操作错误，友好提示
-        //     this.$message({
-        //       type: 'error',
-        //       message: '失败! 错误码:' + resp.data.code
-        //     });
-        //   }else{
-            
-        //   }
-        // }).catch();
+        this.companyInfo.workDay = slideToStr(this.workdays)
+        // console.log(this.companyInfo);
+        this.$http.post(`http://localhost:9000/job/company/add`, this.companyInfo).then((resp)=>{
+          console.log(resp.data);
+          if(resp.data.code != 2000){
+            //操作错误，友好提示
+            this.$message({
+              type: 'error',
+              message: '失败! 错误码:' + resp.data.code
+            });
+            return ;
+          }
+          this.$message({
+            type: 'success',
+            message: '添加成功'
+          });
+          // 回到页面
+          this.$router.push({path:'/company/list'})
+        }).catch();
       },
       //地址拼接
       handleChangeAddress(value) {
@@ -246,14 +254,6 @@
     mounted(){   // 调试时候方便在控制台通过vue.dataName输出data中的值
       window.vue = this
     }
-    // watch:{
-    //   workTimes: {
-    //     handler(newVal,oldVal){
-    //       this.companyInfo.workTime = newVal.join("-")
-    //       console.log(this.companyInfo)
-    //     },
-    //   }
-    // }
   }
 </script>
 
