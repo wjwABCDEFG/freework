@@ -16,7 +16,7 @@
       <el-form-item label="行业">
         <el-select v-model="companyQuery.industry" clearable placeholder="请选择">
           <el-option
-            v-for="item in newIndustry"
+            v-for="item in industry"
             :key="item.value"
             :label="item.label"
             :value="item.value">
@@ -97,7 +97,6 @@
         totalNum: 0,
         companyQuery: {},
         industry: {},
-        newIndustry: [],
         address: regionDataPlus,
         selectedAddress: [],
 
@@ -161,45 +160,10 @@
                 message: '失败! 错误码:' + resp.data.code
               });
             }else{
-              this.industry = JSON.parse(resp.data.data)
-              this.newIndustry = this.handleIndustryData(this.industry)
-              
+              this.industry = JSON.parse(resp.data.data)              
             }
 
           });
-      },
-      handleIndustryData(src){
-        let dest = []
-        let pids = Object.keys(src.level0)
-        let labels = Object.values(src.level0)
-        dest = labels.map((item, index) => {
-            return {
-                value: item,
-                label: item,
-            }
-        })
-
-        let childrens = []
-        for(let i = 0; i < dest.length; i++){
-          let tempChild = src.level1.filter((item) => {
-            return item.pid == i
-          })
-          let child = tempChild.map((item) => {
-            return {
-              label: item.title,
-              value: item.title
-            }
-          })
-          childrens.push(child)
-        }
-
-        let newData = dest.map((item, index) => {
-          return {
-            ...item, 
-            children: childrens[index]};
-        })
-
-        return newData
       },
       //级联选择器地址改变时触发条件查询
       handleChangeAddress(value) {
