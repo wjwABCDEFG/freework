@@ -24,12 +24,12 @@ public class Company extends BaseDomain {
     private String scale;               // 规模
     private String logo;                // logo
     private String companyDesc;         // 公司简介
-    private int workDay;                // 工作日
+    private String workDay;             // 工作日
     private String workTime;            // 工作时间
     private String license;             // 执照
     private String representative;      // 法定代表人
     private Double registeredCapital;   // 注册资本，单位：万元
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date registeredTime;        // 公司注册时间
     @TableLogic
     private Integer status;              // 可用状态
@@ -90,11 +90,11 @@ public class Company extends BaseDomain {
         this.companyDesc = companyDesc;
     }
 
-    public int getWorkDay() {
+    public String getWorkDay() {
         return workDay;
     }
 
-    public void setWorkDay(int workDay) {
+    public void setWorkDay(String workDay) {
         this.workDay = workDay;
     }
 
