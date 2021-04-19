@@ -75,6 +75,13 @@ export const constantRoutes = [
         meta: { title: '添加企业', icon: 'el-icon-circle-plus' }
       },
       {
+        path: 'edit/:id',
+        name: 'companyEdit',
+        component: () => import('@/views/company/savecompany'),
+        meta: { title: '编辑企业', noCache: true},
+        hidden: true
+      },
+      {
         path: 'application',
         name: 'Application',
         // component: () => import('@/views/table/index'),

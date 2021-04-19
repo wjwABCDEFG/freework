@@ -58,13 +58,16 @@
       <el-table-column
         align="right">
         <template slot-scope="scope">
+          <router-link :to="'/company/edit/' + scope.row.id">
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              @click="handleEdit(scope.$index, scope.row)"></el-button>
+          </router-link>
           <el-button
-            size="mini"
-            @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-          <el-button
-            size="mini"
             type="danger"
-            @click="deleteCompany(scope.row.id)">Delete</el-button>
+            icon="el-icon-delete"
+            @click="deleteCompany(scope.row.id)"></el-button>
         </template>
       </el-table-column>
     </el-table>

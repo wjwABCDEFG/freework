@@ -73,7 +73,7 @@
         action="http://localhost:9003/upload/image"
         :show-file-list="false"
         :on-success="uploadLicenseSuccess"
-        :before-upload="beforeLicenseUpload">
+        :before-upload="beforeUpload">
         <img v-if="companyInfo.license" :src="this.companyInfo.license" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
@@ -93,7 +93,7 @@
         </el-col>
     </el-form-item>
     <el-form-item>
-        <el-button type="primary" @click="save">立即保存</el-button>
+        <el-button type="primary" @click="saveOrUpdate">立即保存</el-button>
     </el-form-item>
     </el-form>
   </div>
@@ -146,12 +146,54 @@
       }
     },
     methods: {
+      saveOrUpdate(){
+        if(!this.companyInfo.id){
+          this.save()
+        }else{
+          this.update()
+        }
+      },
+
+      getCompanyInfo(id){
+        this.$http.post(`http://localhost:9000/job/company/findById/${id}`).then((resp)=>{
+          console.log(resp.data);
+          if(resp.data.code != 2000){
+            //操作错误，友好提示
+            this.$message({
+              type: 'error',
+              message: '失败! 错误码:' + resp.data.code
+            });
+            return ;
+          }
+          this.companyInfo = resp.data.data
+        }).catch();
+      },
+      // 修改
+      update(){
+        this.$http.post(`http://localhost:9000/job/company/update`, this.companyInfo).then((resp)=>{
+          if(resp.data.code != 2000){
+            //操作错误，友好提示
+            this.$message({
+              type: 'error',
+              message: '失败! 错误码:' + resp.data.code
+            });
+            return ;
+          }
+          this.$message({
+            type: 'success',
+            message: '修改成功'
+          });
+          // 回到页面
+          this.$router.push({path:'/company/list'})
+        }).catch();
+      },
+      // 保存
       save(){
         this.companyInfo.workTime = this.workTimes.join("-")
         this.companyInfo.workDay = slideToStr(this.workdays)
         // console.log(this.companyInfo);
         this.$http.post(`http://localhost:9000/job/company/add`, this.companyInfo).then((resp)=>{
-          console.log(resp.data);
+          // console.log(resp.data);
           if(resp.data.code != 2000){
             //操作错误，友好提示
             this.$message({
@@ -221,6 +263,7 @@
         }
         this.companyInfo.license = res.data.fullpath
       },
+      // 图片校验
       beforeUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isPNG = file.type === 'image/png';
@@ -234,22 +277,27 @@
         }
         return (isJPG || isPNG) && isLt5M;
       },
-      beforeLicenseUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isPNG = file.type === 'image/png';
-        const isLt5M = file.size / 1024 / 1024 < 5;
+      // beforeLicenseUpload(file) {
+      //   const isJPG = file.type === 'image/jpeg';
+      //   const isPNG = file.type === 'image/png';
+      //   const isLt5M = file.size / 1024 / 1024 < 5;
 
-        if (!isJPG && !isPNG) {
-          this.$message.error('上传头像图片只能是 JPG/PNG 格式!');
-        }
-        if (!isLt5M) {
-          this.$message.error('上传头像图片大小不能超过 5MB!');
-        }
-        return (isJPG || isPNG) && isLt5M;
-      },
+      //   if (!isJPG && !isPNG) {
+      //     this.$message.error('上传头像图片只能是 JPG/PNG 格式!');
+      //   }
+      //   if (!isLt5M) {
+      //     this.$message.error('上传头像图片大小不能超过 5MB!');
+      //   }
+      //   return (isJPG || isPNG) && isLt5M;
+      // },
     },
     created() {
       this.getIndustry()
+      // 根据路径是否有id判断当前是添加还是修改
+      if(this.$route.params && this.$route.params.id){
+        const id = this.$route.params.id
+        this.getCompanyInfo(id)
+      }
     },
     mounted(){   // 调试时候方便在控制台通过vue.dataName输出data中的值
       window.vue = this
