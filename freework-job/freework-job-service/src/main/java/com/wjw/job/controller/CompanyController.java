@@ -48,6 +48,12 @@ public class CompanyController {
         return Result.ok().data(pageInfo);
     }
 
+    @PostMapping("/findById/{id}")
+    public Result findCompanyById(@PathVariable Long id){
+        Company company = companyService.getById(id);
+        return Result.ok().data(company);
+    }
+
     @GetMapping("/static")
     public Result updateCompany(String fileName){
         String res = JsonUtil.readJsonStrFromFile(fileName);
