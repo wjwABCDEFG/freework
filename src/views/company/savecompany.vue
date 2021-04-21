@@ -100,8 +100,9 @@
 </template>
 
 <script>
-  import { regionDataPlus, CodeToText } from 'element-china-area-data'
-  import { slideToStr } from '@/utils/workday'
+  import { regionDataPlus } from 'element-china-area-data'
+  import { slideToStr, strToSlide } from '@/utils/workday'
+  import { addToStr, strToAdd } from '@/utils/address'
 
   export default {
     data() {
@@ -166,7 +167,10 @@
             return ;
           }
           this.companyInfo = resp.data.data
-        }).catch();
+          this.selectedAddress = strToAdd(this.companyInfo.address)
+          this.workdays = strToSlide(this.companyInfo.workDay)
+          this.workTimes = this.companyInfo.workTime.split("-")
+        });
       },
       // 修改
       update(){
@@ -212,12 +216,7 @@
       },
       //地址拼接
       handleChangeAddress(value) {
-        // console.log(value[0] == '', value[1] == '', value[2] == null)
-        let addressText = value[0] == '' ? '' : CodeToText[value[0]]
-        for (let i = 1; i < value.length; i++) {
-          if(value[i] != '') addressText = addressText + '-' + CodeToText[value[i]]
-        }
-        this.companyInfo.address = addressText
+        this.companyInfo.address = addToStr(value)
       },
       getIndustry(){
         this.$http.get(`http://localhost:9000/job/company/static`, {

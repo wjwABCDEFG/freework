@@ -61,8 +61,7 @@
           <router-link :to="'/company/edit/' + scope.row.id">
             <el-button
               type="primary"
-              icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)"></el-button>
+              icon="el-icon-edit"></el-button>
           </router-link>
           <el-button
             type="danger"
@@ -120,9 +119,6 @@
               this.totalNum = resp.data.data.total
             }
         }).catch();
-      },
-      handleEdit(index, row) {
-        console.log(index, row);
       },
       deleteCompany(id) {
         this.$confirm('此操作将永久删除该企业信息, 是否继续?', '提示', {
@@ -190,7 +186,7 @@
     watch:{
       companyQuery: {
         handler(newVal,oldVal){
-            console.log(newVal.companyName, newVal.address, newVal.industry)
+            // console.log(newVal.companyName, newVal.address, newVal.industry)
             this.pageCompany()
         },
         deep: true  // 监控对象内所有属性的变化
