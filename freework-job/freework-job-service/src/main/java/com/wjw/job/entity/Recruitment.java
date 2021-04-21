@@ -18,7 +18,7 @@ public class Recruitment extends BaseDomain {
     @TableId(value = "id", type = IdType.ID_WORKER)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;                    // 招聘信息ID
-    private Company company;            // 企业
+    private Long companyId;             // 企业ID
     private String address;             // 职位
     private String position;            // 行业
     private String salary;              // 薪资范围，单位k
@@ -30,7 +30,7 @@ public class Recruitment extends BaseDomain {
     private String degreeReq;           // 学历要求
     private boolean isCampus;           // 是否校招
     private String positionDesc;        // 职位描述
-    private User hr;                  // hr
+    private Long hrId;                  // hrID
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date endTime;               // 截止时间
     @TableLogic
@@ -44,12 +44,12 @@ public class Recruitment extends BaseDomain {
         this.id = id;
     }
 
-    public Company getCompany() {
-        return company;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public String getAddress() {
@@ -140,12 +140,12 @@ public class Recruitment extends BaseDomain {
         this.positionDesc = positionDesc;
     }
 
-    public User getHr() {
-        return hr;
+    public Long getHrId() {
+        return hrId;
     }
 
-    public void setHr(User hr) {
-        this.hr = hr;
+    public void setHrId(Long hrId) {
+        this.hrId = hrId;
     }
 
     public Date getEndTime() {

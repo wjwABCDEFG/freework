@@ -14,5 +14,4 @@ import java.util.List;
 @Repository
 public interface RecruitmentMapper extends BaseMapper<Recruitment> {
 
-    List<Recruitment> findAll();
 }

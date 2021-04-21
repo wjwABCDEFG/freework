@@ -16,7 +16,7 @@ public class User extends BaseDomain {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;                    // 用户ID
     private String name;                // 姓名
-    private String nickName;            // 昵称
+    private String nickname;            // 昵称
     private String password;            // 密码
     private String avatar;              // 头像
     private String intro;               // 简介
@@ -27,7 +27,7 @@ public class User extends BaseDomain {
     private String school;              // 学校
     private String company;             // 公司
     private String position;            // 职位
-    private Role role;                  // 角色
+    private Long roleId;                // 角色
 
     public Long getId() {
         return id;
@@ -45,12 +45,12 @@ public class User extends BaseDomain {
         this.name = name;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getPassword() {
@@ -133,11 +133,11 @@ public class User extends BaseDomain {
         this.position = position;
     }
 
-    public Role getRole() {
-        return role;
+    public Long getRoleId() {
+        return roleId;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 }
