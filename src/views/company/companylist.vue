@@ -41,15 +41,16 @@
       </el-table-column>
       <el-table-column
         label="地址"
-        prop="address">
+        prop="address"
+        width="250">
       </el-table-column>
       <el-table-column
         label="行业"
         prop="industry">
       </el-table-column>
       <el-table-column
-        label="工作日"
-        prop="workDay">
+        label="工作日">
+        <template slot-scope="scope">{{ handleWorkDay(scope.row.workDay) }}</template>
       </el-table-column>
       <el-table-column
         label="工作时间"
@@ -90,6 +91,8 @@
 
 <script>
   import { regionDataPlus, CodeToText } from 'element-china-area-data'
+  import { strToHuman } from '@/utils/workday'
+
   export default {
     data() {
       return {
@@ -105,21 +108,23 @@
       }
     },
     methods: {
+      // 条件查询
       pageCompany(){
         this.$http.post(`http://localhost:9000/job/company/findPage/${this.curPage}/${this.pageSize}`, this.companyQuery).then((resp)=>{
           //console.log(resp.data);
           if(resp.data.code != 2000){
-              //操作错误，友好提示
-              this.$message({
-                type: 'error',
-                message: '查询失败! 错误码:' + resp.data.code
-              });
-            }else{
-              this.companyList = resp.data.data.records
-              this.totalNum = resp.data.data.total
-            }
-        }).catch();
+            //操作错误，友好提示
+            this.$message({
+              type: 'error',
+              message: '查询失败! 错误码:' + resp.data.code
+            });
+            return ;
+          }
+          this.companyList = resp.data.data.records
+          this.totalNum = resp.data.data.total
+        })
       },
+      // 删除
       deleteCompany(id) {
         this.$confirm('此操作将永久删除该企业信息, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -146,6 +151,7 @@
           });
         });
       },
+      // 获取行业静态json
       getIndustry(){
         this.$http.get(`http://localhost:9000/job/company/static`, {
           params:{
@@ -174,6 +180,10 @@
         this.companyQuery.address = addressText
         // console.log(this.companyQuery)
         this.pageCompany()
+      },
+      // 格式化工作时间
+      handleWorkDay(src) {
+        return strToHuman(src)
       },
     },
     created() {

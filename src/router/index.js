@@ -60,23 +60,23 @@ export const constantRoutes = [
     component: Layout,                                      // 
     redirect: '/company/list',                              // 默认重定向到二级url地址栏中的路径
     name: 'Company',                                        // name相当于唯一id，后期如果修改路由地址 也不会受影响
-    meta: { title: '企业管理', icon: 'el-icon-suitcase' },  // 显示图标和标签名字
+    meta: { title: '企业管理', icon: 'el-icon-s-cooperation' },  // 显示图标和标签名字
     children: [
       {
         path: 'list',
         name: 'List',
         component: () => import('@/views/company/companylist'),
-        meta: { title: '企业列表', icon: 'table' }
+        meta: { title: '企业列表', icon: 'el-icon-office-building' }
       },
       {
         path: 'save',
-        name: 'save',
+        name: 'Save',
         component: () => import('@/views/company/savecompany'),
-        meta: { title: '添加企业', icon: 'el-icon-circle-plus' }
+        meta: { title: '添加企业', icon: 'el-icon-circle-plus-outline' }
       },
       {
         path: 'edit/:id',
-        name: 'companyEdit',
+        name: 'CompanyEdit',
         component: () => import('@/views/company/savecompany'),
         meta: { title: '编辑企业', noCache: true},
         hidden: true
@@ -85,7 +85,7 @@ export const constantRoutes = [
         path: 'application',
         name: 'Application',
         // component: () => import('@/views/table/index'),
-        meta: { title: '申请列表', icon: 'el-icon-s-check' }
+        meta: { title: '申请列表', icon: 'el-icon-coordinate' }
       },
     ]
   },
@@ -98,7 +98,28 @@ export const constantRoutes = [
         path: 'list',
         name: 'List',
         //component: () => import('@/views/table/index'),
-        meta: { title: '用户管理', icon: 'el-icon-user' }
+        meta: { title: '用户管理', icon: 'el-icon-user-solid' }
+      },
+    ]
+  },
+
+  {
+    path: '/recruitment',
+    component: Layout,
+    name: 'Recruitment',
+    meta: { title: '招聘信息管理', icon: 'el-icon-s-flag' },
+    children: [
+      {
+        path: 'list',
+        name: 'List',
+        component: () => import('@/views/recruitment/recruitmentlist'),
+        meta: { title: '招聘信息列表', icon: 'el-icon-tickets' }
+      },
+      {
+        path: 'save',
+        name: 'Save',
+        component: () => import('@/views/recruitment/saverecruitment'),
+        meta: { title: '发布招聘信息', icon: 'el-icon-edit' }
       },
     ]
   },

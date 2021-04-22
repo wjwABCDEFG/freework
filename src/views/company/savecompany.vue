@@ -154,7 +154,7 @@
           this.update()
         }
       },
-
+      // 查询
       getCompanyInfo(id){
         this.$http.post(`http://localhost:9000/job/company/findById/${id}`).then((resp)=>{
           console.log(resp.data);
@@ -214,10 +214,11 @@
           this.$router.push({path:'/company/list'})
         }).catch();
       },
-      //地址拼接
+      // 地址拼接
       handleChangeAddress(value) {
         this.companyInfo.address = addToStr(value)
       },
+      // 请求行业json
       getIndustry(){
         this.$http.get(`http://localhost:9000/job/company/static`, {
           params:{
@@ -276,19 +277,6 @@
         }
         return (isJPG || isPNG) && isLt5M;
       },
-      // beforeLicenseUpload(file) {
-      //   const isJPG = file.type === 'image/jpeg';
-      //   const isPNG = file.type === 'image/png';
-      //   const isLt5M = file.size / 1024 / 1024 < 5;
-
-      //   if (!isJPG && !isPNG) {
-      //     this.$message.error('上传头像图片只能是 JPG/PNG 格式!');
-      //   }
-      //   if (!isLt5M) {
-      //     this.$message.error('上传头像图片大小不能超过 5MB!');
-      //   }
-      //   return (isJPG || isPNG) && isLt5M;
-      // },
     },
     created() {
       this.getIndustry()
@@ -298,9 +286,9 @@
         this.getCompanyInfo(id)
       }
     },
-    mounted(){   // 调试时候方便在控制台通过vue.dataName输出data中的值
-      window.vue = this
-    }
+    // mounted(){   // 调试时候方便在控制台通过vue.dataName输出data中的值
+    //   window.vue = this
+    // }
   }
 </script>
 
