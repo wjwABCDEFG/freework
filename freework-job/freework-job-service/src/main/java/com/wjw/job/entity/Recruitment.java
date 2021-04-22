@@ -22,7 +22,7 @@ public class Recruitment extends BaseDomain {
     private String address;             // 职位
     private String position;            // 行业
     private String salary;              // 薪资范围，单位k
-    private Integer salary_month;       // 薪资月，几薪
+    private Integer salaryMonth;        // 薪资月，几薪
     private String welfareTag;          // 福利标签
     private String workDay;             // 岗位工作日
     private String workTime;            // 岗位工作时间
@@ -76,12 +76,12 @@ public class Recruitment extends BaseDomain {
         this.salary = salary;
     }
 
-    public Integer getSalary_month() {
-        return salary_month;
+    public Integer getSalaryMonth() {
+        return salaryMonth;
     }
 
-    public void setSalary_month(Integer salary_month) {
-        this.salary_month = salary_month;
+    public void setSalaryMonth(Integer salaryMonth) {
+        this.salaryMonth = salaryMonth;
     }
 
     public String getWelfareTag() {
