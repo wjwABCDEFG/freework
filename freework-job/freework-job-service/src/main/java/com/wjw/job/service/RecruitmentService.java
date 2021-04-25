@@ -6,6 +6,7 @@ import com.wjw.common.exception.FreeworkException;
 import com.wjw.job.entity.Company;
 import com.wjw.job.entity.Recruitment;
 import com.wjw.job.entity.User;
+import com.wjw.job.entity.vo.RecruitmentDetailVO;
 import com.wjw.job.entity.vo.RecruitmentVO;
 import com.wjw.job.mapper.CompanyMapper;
 import com.wjw.job.mapper.RecruitmentMapper;
@@ -57,5 +58,21 @@ public class RecruitmentService extends ServiceImpl<RecruitmentMapper, Recruitme
         }
 
         return recVOList;
+    }
+
+    public RecruitmentDetailVO findById(Long id) {
+        RecruitmentDetailVO detailVO = new RecruitmentDetailVO();
+        Recruitment recruitment = this.recruitmentMapper.selectById(id);
+        BeanUtils.copyProperties(recruitment, detailVO);
+
+        Company company = companyMapper.selectById(recruitment.getCompanyId());
+        if (company == null) throw new FreeworkException(ErrCodeEnum.NONECOMPANYINFO);
+        detailVO.setCompany(company);
+
+        User user = userMapper.selectById(recruitment.getHrId());
+        if (user == null) throw new FreeworkException(ErrCodeEnum.NONEUSERINFO);
+        detailVO.setHr(user);
+
+        return detailVO;
     }
 }

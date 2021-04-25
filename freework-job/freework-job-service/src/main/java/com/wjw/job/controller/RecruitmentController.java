@@ -2,6 +2,7 @@ package com.wjw.job.controller;
 
 import com.wjw.common.entity.Result;
 import com.wjw.job.entity.Recruitment;
+import com.wjw.job.entity.vo.RecruitmentDetailVO;
 import com.wjw.job.entity.vo.RecruitmentVO;
 import com.wjw.job.service.RecruitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,11 @@ public class RecruitmentController {
     public Result findAllRecruitment(){
         List<RecruitmentVO> recruitmentList = recruitmentService.findAll();
         return Result.ok().data(recruitmentList);
+    }
+
+    @GetMapping("/findById/{id}")
+    public Result findById(@PathVariable Long id){
+        RecruitmentDetailVO detailVO = recruitmentService.findById(id);
+        return Result.ok().data(detailVO);
     }
 }

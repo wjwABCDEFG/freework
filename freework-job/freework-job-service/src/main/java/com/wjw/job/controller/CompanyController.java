@@ -9,6 +9,8 @@ import com.wjw.job.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author wjw
  * @date 2021/4/8 0:57
@@ -58,5 +60,11 @@ public class CompanyController {
     public Result updateCompany(String fileName){
         String res = JsonUtil.readJsonStrFromFile(fileName);
         return Result.ok().data(res);
+    }
+
+    @GetMapping("/findNameAndId")
+    public Result findNameAndId(){
+        List<Company> companies = this.companyService.findNameAndId();
+        return Result.ok().data(companies);
     }
 }

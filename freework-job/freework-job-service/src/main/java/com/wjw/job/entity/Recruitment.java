@@ -19,8 +19,9 @@ public class Recruitment extends BaseDomain {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;                    // 招聘信息ID
     private Long companyId;             // 企业ID
-    private String address;             // 职位
-    private String position;            // 行业
+    private String address;             // 地址
+    private String detailAddress;       // 详细地址
+    private String position;            // 职位
     private String salary;              // 薪资范围，单位k
     private Integer salaryMonth;        // 薪资月，几薪
     private String welfareTag;          // 福利标签
@@ -162,5 +163,13 @@ public class Recruitment extends BaseDomain {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getDetailAddress() {
+        return detailAddress;
+    }
+
+    public void setDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
     }
 }

@@ -21,6 +21,7 @@ public class Company extends BaseDomain {
     private String companyName;         // 企业名称
     private String industry;            // 行业
     private String address;             // 地点
+    private String detailAddress;       // 详细地址
     private String scale;               // 规模
     private String logo;                // logo
     private String companyDesc;         // 公司简介
@@ -144,5 +145,13 @@ public class Company extends BaseDomain {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getDetailAddress() {
+        return detailAddress;
+    }
+
+    public void setDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
     }
 }
