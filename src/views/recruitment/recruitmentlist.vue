@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 招聘信息列表 -->
     <el-table
       ref="multipleTable"
       :data="recruitmentsData"
@@ -36,13 +37,30 @@
       <el-table-column prop="createTime" label="发布时间" min-width="13%" sortable></el-table-column>
       <el-table-column prop="endTime" label="截止日期" min-width="9%" sortable></el-table-column>
       <el-table-column label="操作" min-width="13%">
-        <div>
+        <div slot-scope="scope">
           <!-- <el-link icon="el-icon-edit" :underline="false">编辑</el-link> -->
-          <el-link icon="el-icon-view" :underline="false" class="option-css">查看</el-link>
+          <el-link icon="el-icon-view" :underline="false" class="option-css" @click="showDrawer(scope.row.id)">查看</el-link>
           <el-link icon="el-icon-delete" :underline="false">删除</el-link>
         </div>
       </el-table-column>
     </el-table>
+
+    <!-- 详细信息 -->
+    <el-drawer
+      :title="recruitmentInfo.company.companyName + ' 的招聘信息'"
+      :before-close="handleClose"
+      :visible.sync="drawer"
+      custom-class="demo-drawer"
+      ref="drawer"
+      >
+      <div class="demo-drawer__content">
+        {{recruitmentInfo}}
+        <div class="demo-drawer__footer">
+          <el-button @click="cancelForm">取 消</el-button>
+          <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '提交中 ...' : '确 定' }}</el-button>
+        </div>
+      </div>
+    </el-drawer>
   </div>
 </template>
 
@@ -54,6 +72,16 @@ export default {
     return {
       recruitmentsData: [],
       multipleSelection: [],
+      drawer: false,
+      loading: false,
+      timer: null,
+      edit: false,
+      selectedId: '',
+      recruitmentInfo: {
+        company: {
+          companyName: "",
+        }
+      },
     };
   },
 
@@ -80,13 +108,13 @@ export default {
     },
     // 薪资标签颜色TODO
     salaryColor(salary, month) {
-      let base = salary.split("-")[0];
+      let base = salary.substring(0, salary.indexOf('k'));
       base *= month; // 年薪
       if (base < 50) return "info";           // 5w 
       else if (base < 100) return "warning";  // 10w
       else if (base < 150) return "success";  // 15w
       else if (base < 200) return "";         // 20w
-      else if (base > 200) return "danger";   // >20w
+      else if (base > 200) return "danger";   // more
       // :color="salaryColor(scope.row.salary, scope.row.salaryMonth)"后期可以改成颜色代码
     },
     // 多选
@@ -94,6 +122,52 @@ export default {
       this.multipleSelection = val;
       console.log(this.multipleSelection)
     },
+    // 打开抽屉
+    showDrawer(id){
+      this.drawer = true
+      this.selectedId = id
+      this.getRecruitmentInfo(id)
+    },
+    // 关闭抽屉
+    handleClose(done) {
+      if (this.loading) {
+        return;
+      }
+      this.$confirm('确定要提交表单吗？')
+        .then(_ => {
+          this.loading = true;
+          this.timer = setTimeout(() => {
+            done();   // 框架封装的关闭抽屉方法
+            // 动画关闭需要一定的时间，心理作用
+            setTimeout(() => {
+              this.loading = false;
+            }, 400);
+          }, 2000);
+        })
+        .catch(_ => {});
+    },
+    // 获取详细信息
+    getRecruitmentInfo(){
+      this.$http
+        .get(`http://localhost:9000/job/recruitment/findById/${this.selectedId}`)
+        .then((resp) => {
+          if (resp.data.code != 2000) {
+            //操作错误，友好提示
+            this.$message({
+              type: "error",
+              message: "失败! 错误码:" + resp.data.code,
+            });
+            return;
+          }
+          this.recruitmentInfo = resp.data.data;
+        });
+    },
+    // 取消提交表单
+    cancelForm() {
+      this.loading = false;
+      this.drawer = false;
+      clearTimeout(this.timer);
+    }
   },
 
   created() {

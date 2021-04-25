@@ -103,6 +103,8 @@
   import { regionDataPlus } from 'element-china-area-data'
   import { slideToStr, strToSlide } from '@/utils/workday'
   import { addToStr, strToAdd } from '@/utils/address'
+  // import { getIndustryAndPosition } from '@/utils/industry'
+
 
   export default {
     data() {
@@ -157,7 +159,7 @@
       // 查询
       getCompanyInfo(id){
         this.$http.post(`http://localhost:9000/job/company/findById/${id}`).then((resp)=>{
-          console.log(resp.data);
+          // console.log(resp.data);
           if(resp.data.code != 2000){
             //操作错误，友好提示
             this.$message({
@@ -193,7 +195,7 @@
       },
       // 保存
       save(){
-        this.companyInfo.workTime = this.workTimes.join("-")
+        this.companyInfo.workTime = this.workTimes.join("-")    // TODO 这两句可以使用@change，参考发布招聘信息
         this.companyInfo.workDay = slideToStr(this.workdays)
         // console.log(this.companyInfo);
         this.$http.post(`http://localhost:9000/job/company/add`, this.companyInfo).then((resp)=>{
@@ -221,21 +223,20 @@
       // 请求行业json
       getIndustry(){
         this.$http.get(`http://localhost:9000/job/company/static`, {
-          params:{
-            fileName: "industry.json"
-          }
-        }).then((resp)=>{
-            if(resp.data.code != 2000){
-              //操作错误，友好提示
-              this.$message({
-                type: 'error',
-                message: '失败! 错误码:' + resp.data.code
-              });
-            }else{
-              this.industry = JSON.parse(resp.data.data)              
+            params: {
+                fileName: "industry.json"
             }
-
-          });
+        }).then((resp) => {
+            if (resp.data.code != 2000) {
+                //操作错误，友好提示
+                this.$message({
+                    type: 'error',
+                    message: '获取行业数据失败! 错误码:' + resp.data.code
+                });
+                return ;
+            }
+            this.industry = JSON.parse(resp.data.data)
+        });
       },
       uploadLogoSuccess(res, file){
         // console.log(res)
