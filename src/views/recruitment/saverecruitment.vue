@@ -7,12 +7,8 @@
       ref="recruitmentInfo"
       label-width="100px"
     >
-      <el-form-item label="公司名称" prop="company" required>
-        <el-select
-          v-model="recruitmentInfo.companyId"
-          filterable
-          placeholder="请选择"
-        >
+      <el-form-item label="公司名称" prop="companyId" required>
+        <el-select v-model="recruitmentInfo.companyId" filterable placeholder="请选择">
           <el-option
             v-for="item in this.companyList"
             :key="item.id"
@@ -21,15 +17,23 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="地址" prop="address" required>
+      <el-form-item label="地址" required>
         <el-col :span="8">
-          <el-cascader v-model="formattedAddress" :options="address" @change="handleChangeAddress"></el-cascader>
+          <el-form-item prop="address">
+            <el-cascader
+              v-model="formattedAddress"
+              :options="address"
+              @change="handleChangeAddress"
+            ></el-cascader>
+          </el-form-item>
         </el-col>
         <el-col :span="16">
-          <el-input v-model="recruitmentInfo.detailAddress" placeholder="详细地址（街道和门牌号）"></el-input>
+          <el-form-item prop="detailAddress">
+            <el-input v-model="recruitmentInfo.detailAddress" placeholder="详细地址（街道和门牌号）"></el-input>
+          </el-form-item>
         </el-col>
       </el-form-item>
-      <el-form-item label="岗位" prop="position" required>
+      <el-form-item label="职位" prop="position" required>
         <el-cascader
           v-model="positions"
           placeholder="试试搜索：前端"
@@ -41,7 +45,7 @@
           @change="handlePositionChg"
         ></el-cascader>
       </el-form-item>
-      <el-form-item label="岗位要求" prop="position" required>
+      <el-form-item label="职位描述" prop="positionDesc" required>
         <div>
           <tinymce v-model="recruitmentInfo.positionDesc" :height="300" />
         </div>
@@ -79,10 +83,10 @@
           <el-option v-for="(item, i) in experiences" :key="i" :label="item" :value="item"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="是否校招" prop="campus" required>
+      <el-form-item label="是否校招" required>
         <el-switch v-model="recruitmentInfo.campus" active-color="#FF7E00"></el-switch>
       </el-form-item>
-      <el-form-item label="薪资(千)" prop="salary" required>
+      <el-form-item label="薪资(千)" required>
         <el-col :span="4">
           <el-input-number
             v-model="salarys[0]"
@@ -125,14 +129,14 @@
             <el-input-number v-model="num" :precision="1" :step="1.0" :max="10"  controls-position="right"></el-input-number>
         </el-col>-->
       </el-form-item>
-      <el-form-item label="福利标签" prop="welfareTag" required>
+      <el-form-item label="福利标签" required>
         <el-tag
           v-for="(tag, idx) in welfareTags"
           :key="idx"
           closable
           :disable-transitions="false"
           @close="handleClose(tag)"
-        >{{tag}}</el-tag>
+        >{{ tag }}</el-tag>
         <el-input
           class="input-new-tag"
           v-if="inputVisible"
@@ -153,7 +157,7 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="saveOrUpdate(recruitmentInfo)">立即创建</el-button>
+        <el-button type="primary" @click="saveOrUpdate('recruitmentInfo')">立即创建</el-button>
         <el-button @click="resetForm('recruitmentInfo')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -164,7 +168,7 @@
 import { regionDataPlus } from "element-china-area-data";
 import { slideToStr, strToSlide } from "@/utils/workday";
 import { addToStr, strToAdd } from "@/utils/address";
-import Tinymce from '@/components/Tinymce'
+import Tinymce from "@/components/Tinymce";
 
 export default {
   components: { Tinymce },
@@ -178,7 +182,9 @@ export default {
         salaryMonth: 12,
         workDay: "1111100",
         workTime: "09:00-17:00",
-        welfareTag: [],
+        position: "",
+        positionDesc: "",
+        welfareTag: "['五险一金','包三餐','住房补贴']",
       },
       formattedAddress: "",
       companyList: [],
@@ -207,7 +213,7 @@ export default {
       positions: [],
       salarys: [0.0, 0.0],
       workdays: [1, 5],
-      workTimes: ["Sat Apr 18 1999 09:00", "Sat Apr 18 1999 17:00"],
+      workTimes: ["Tue May 18 1999 09:00", "Tue May 18 1999 17:00"],
       workDayMarks: {
         1: "一",
         2: "二",
@@ -222,41 +228,32 @@ export default {
       inputValue: "",
 
       rules: {
-        company: [
-          { required: true, message: "请输入公司名称，找不到请先申请创建公司", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
-        ],
-        region: [
-          { required: true, message: "请选择活动区域", trigger: "change" },
-        ],
-        date1: [
+        companyId: [
           {
-            type: "date",
             required: true,
-            message: "请选择日期",
+            message: "请输入公司名称，若没有可先申请创建",
             trigger: "change",
           },
         ],
-        date2: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择时间",
-            trigger: "change",
-          },
+        address: [{ required: true, message: "请选择分类", trigger: "change" }],
+        detailAddress: [
+          { required: true, message: "请输入详细地址", trigger: "blur" },
         ],
-        type: [
-          {
-            type: "array",
-            required: true,
-            message: "请至少选择一个活动性质",
-            trigger: "change",
-          },
+        position: [
+          { required: true, message: "请输入职位", trigger: "change" },
         ],
-        resource: [
-          { required: true, message: "请选择活动资源", trigger: "change" },
+        positionDesc: [
+          { required: true, message: "请输入职位描述", trigger: "blur" },
         ],
-        desc: [{ required: true, message: "请填写活动形式", trigger: "blur" }],
+        degreeReq: [
+          { required: true, message: "请选择学历要求", trigger: "change" },
+        ],
+        experienceReq: [
+          { required: true, message: "请选择经验要求", trigger: "change" },
+        ],
+        endTime: [
+          { required: true, message: "请填写截止日期", trigger: "blur" },
+        ],
       },
     };
   },
@@ -302,8 +299,8 @@ export default {
         });
     },
     // 处理岗位格式
-    handlePositionChg(val){
-        this.recruitmentInfo.position = val.join('-')
+    handlePositionChg(val) {
+      this.recruitmentInfo.position = val.join("-");
     },
     // 处理工作日格式
     handleWorkdayChg(val) {
@@ -317,7 +314,7 @@ export default {
     },
     // 搜索忽略大小写
     filterWithoutCase(node, data) {
-      console.log('node', node, 'data', data)  //该方法会自动遍历所有节点，node是遍历到的当前节点，data是输入的文本
+      //   console.log('node', node, 'data', data)  //该方法会自动遍历所有节点，node是遍历到的当前节点，data是输入的文本
       if (!node) return true;
       return node.label.toLowerCase().indexOf(data.toLowerCase()) !== -1;
     },
@@ -347,18 +344,39 @@ export default {
     },
     // 保存
     save(formName) {
-      console.log(formName);
-      //   this.$refs[formName].validate((valid) => {
-      //     if (valid) {
-      //       alert("submit!");
-      //     } else {
-      //       console.log("error submit!!");
-      //       return false;
-      //     }
-      //   });
+      //   console.log(formName);
+      this.$refs[formName].validate((valid) => {
+        if (!valid) {
+          return false;
+        }
+        this.$http
+          .post(
+            `http://localhost:9000/job/recruitment/add`,
+            this.recruitmentInfo
+          )
+          .then((resp) => {
+            if (resp.data.code != 2000) {
+              //操作错误，友好提示
+              this.$message({
+                type: "error",
+                message: "失败! 错误码:" + resp.data.code,
+              });
+              return;
+            }
+            this.$message({
+              type: "success",
+              message: "成功发布",
+            });
+            // 回到页面
+            this.$router.push({ path: "/recruitment/list" });
+          });
+      });
     },
+    // 重置表单
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields()
+      this.positions = []
+      this.formattedAddress = ""
     },
   },
   created() {
