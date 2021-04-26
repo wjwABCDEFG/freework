@@ -28,8 +28,8 @@ public class RecruitmentController {
         return Result.ok();
     }
 
-    @DeleteMapping("/remove")
-    public Result removeRecruitment(Long id){
+    @DeleteMapping("/remove/{id}")
+    public Result removeRecruitment(@PathVariable Long id){
         recruitmentService.removeById(id);
         return Result.ok();
     }
@@ -50,5 +50,11 @@ public class RecruitmentController {
     public Result findById(@PathVariable Long id){
         RecruitmentDetailVO detailVO = recruitmentService.findById(id);
         return Result.ok().data(detailVO);
+    }
+
+    @PostMapping("/removeBatch")
+    public Result removeBatch(@RequestBody List<Long> rids){
+        recruitmentService.removeByIds(rids);
+        return Result.ok();
     }
 }
