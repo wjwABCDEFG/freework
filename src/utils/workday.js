@@ -17,14 +17,14 @@ export function strToSlide(src) {
 export function strToHuman(src) {
     let humanText = src
 
-    // if(src == '1111100') humanText = '周末双休'
-    // else if(src == '1111110') humanText = '单休'
-    // else{
-    //     let sli = strToSlide(src)
-    //     humanText = `周${sli[0]} - 周${sli[1]}`
-    // }
-    let sli = strToSlide(src)
-    humanText = `周${sli[0]} - 周${sli[1]}`
+    if(src == '1111100') humanText = '周末双休'
+    else if(src == '1111110') humanText = '单休'
+    else{
+        let sli = strToSlide(src)
+        humanText = `周${sli[0]} - 周${sli[1]}`
+    }
+    // let sli = strToSlide(src)
+    // humanText = `周${sli[0]} - 周${sli[1]}`
 
     return humanText
 }

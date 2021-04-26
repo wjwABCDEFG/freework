@@ -37,13 +37,17 @@
       <el-table-column prop="createTime" label="发布时间" min-width="13%" sortable></el-table-column>
       <el-table-column prop="endTime" label="截止日期" min-width="9%" sortable></el-table-column>
       <el-table-column label="操作" min-width="13%">
+        <template slot="header">
+          <span style="padding-right:30px;">操作</span>
+          <el-button type="plain" icon="el-icon-delete" circle @click="deleteBatch"></el-button>
+        </template>
         <div slot-scope="scope">
           <!-- <el-link icon="el-icon-edit" :underline="false">编辑</el-link> -->
           <el-link
             icon="el-icon-view"
             :underline="false"
             class="option-css"
-            @click="showDrawer(scope.row.id)"
+            @click="openDialog(scope.row.id)"
           >查看</el-link>
           <el-link icon="el-icon-delete" :underline="false" @click="deleteRec(scope.row.id)">删除</el-link>
         </div>
@@ -51,41 +55,33 @@
     </el-table>
 
     <!-- 详细信息 -->
-    <el-drawer
-      :title="recruitmentInfo.company.companyName + ' 的招聘信息'"
-      :before-close="handleClose"
-      :visible.sync="drawer"
-      custom-class="demo-drawer"
-      ref="drawer"
+    <el-dialog
+      :visible.sync="detailVisible"
+      width="52%"
+      :before-close="closeDetail"
+      class="detail-css"
     >
-      <div class="demo-drawer__content">
-        {{recruitmentInfo}}
-        <div class="demo-drawer__footer">
-          <el-button @click="cancelForm">取 消</el-button>
-          <el-button
-            type="primary"
-            @click="$refs.drawer.closeDrawer()"
-            :loading="loading"
-          >{{ loading ? '提交中 ...' : '确 定' }}</el-button>
-        </div>
-      </div>
-    </el-drawer>
+      <!-- 编辑页面子组件 -->
+      <rec-card :ptos="selectedId"></rec-card>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { strToHuman } from "@/utils/workday";
+import editrecruitment from "@/views/recruitment/editrecruitment";
 
 export default {
+  components: {
+    "rec-card": editrecruitment,
+  },
   data() {
     return {
       recruitmentsData: [],
       multipleSelection: [],
-      drawer: false,
-      loading: false,
-      timer: null,
-      edit: false,
       selectedId: "",
+      detailVisible: false,
+      edit: false,
       recruitmentInfo: {
         company: {
           companyName: "",
@@ -133,56 +129,47 @@ export default {
     // 多选
     handleSelectionChange(val) {
       this.multipleSelection = val;
-      console.log(this.multipleSelection);
+      // console.log(this.multipleSelection);
+    },
+    // 打开对话框
+    openDialog(id) {
+      this.detailVisible = true
+      this.selectedId = id
+    },
+    // 关闭对话框
+    closeDetail(){
+      this.detailVisible = false
     },
     // 打开抽屉
-    showDrawer(id) {
-      this.drawer = true;
-      this.selectedId = id;
-      this.getRecruitmentInfo(id);
-    },
-    // 关闭抽屉
-    handleClose(done) {
-      if (this.loading) {
-        return;
-      }
-      this.$confirm("确定要提交表单吗？")
-        .then((_) => {
-          this.loading = true;
-          this.timer = setTimeout(() => {
-            done(); // 框架封装的关闭抽屉方法
-            // 动画关闭需要一定的时间，心理作用
-            setTimeout(() => {
-              this.loading = false;
-            }, 400);
-          }, 2000);
-        })
-        .catch((_) => {});
-    },
-    // 获取详细信息
-    getRecruitmentInfo() {
-      this.$http
-        .get(
-          `http://localhost:9000/job/recruitment/findById/${this.selectedId}`
-        )
-        .then((resp) => {
-          if (resp.data.code != 2000) {
-            //操作错误，友好提示
-            this.$message({
-              type: "error",
-              message: "失败! 错误码:" + resp.data.code,
-            });
-            return;
-          }
-          this.recruitmentInfo = resp.data.data;
-        });
-    },
+    // showDrawer(id) {
+    //   this.drawer = true;
+    //   this.selectedId = id;
+    //   this.getRecruitmentInfo(id);
+    // },
+    // // 关闭抽屉
+    // handleClose(done) {
+    //   if (this.loading) {
+    //     return;
+    //   }
+    //   this.$confirm("确定要提交表单吗？")
+    //     .then((_) => {
+    //       this.loading = true;
+    //       this.timer = setTimeout(() => {
+    //         done(); // 框架封装的关闭抽屉方法
+    //         // 动画关闭需要一定的时间，心理作用
+    //         setTimeout(() => {
+    //           this.loading = false;
+    //         }, 400);
+    //       }, 2000);
+    //     })
+    //     .catch((_) => {});
+    // },
     // 取消提交表单
-    cancelForm() {
-      this.loading = false;
-      this.drawer = false;
-      clearTimeout(this.timer);
-    },
+    // cancelForm() {
+    //   this.loading = false;
+    //   this.drawer = false;
+    //   clearTimeout(this.timer);
+    // },
     // 删除招聘信息
     deleteRec(id) {
       this.$confirm("确认删除该条招聘信息, 是否继续?", "提示", {
@@ -214,8 +201,9 @@ export default {
       let rids = this.multipleSelection.map((item) => {
         return item.id;
       });
+      console.log(rids);
       this.$http
-        .delete(`http://localhost:9000/job/recruitment/removeBatch`, rids)
+        .post(`http://localhost:9000/job/recruitment/removeBatch`, rids)
         .then((resp) => {
           if (resp.data.code != 2000) {
             //操作错误，友好提示
@@ -256,5 +244,14 @@ export default {
 .logo-height-css > img {
   height: 100%; /* logo本身会扩大至外层同高 */
   vertical-align: middle;
+}
+
+.detail-css .el-dialog__body {
+  padding: 0px 0px;
+}
+
+.detail-css .el-dialog__body .card-css {
+  margin: 0px;
+  padding: 20px;
 }
 </style>
