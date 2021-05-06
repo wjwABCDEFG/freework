@@ -16,3 +16,9 @@ Date.prototype.format = function (format) {
                 ("00" + o[k]).substr(("" + o[k]).length));
     return format;
 }
+
+export function calYearSub(startYear, endYear) {
+    let dis = endYear.getFullYear() - startYear.getFullYear()
+    if(dis < 0) console.log("时间差小于0")
+    else return dis
+}

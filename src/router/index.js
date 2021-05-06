@@ -93,12 +93,21 @@ export const constantRoutes = [
   {
     path: '/user',
     component: Layout,
+    redirect: '/user/list',
+    name: 'User', 
+    meta: { title: '用户管理', icon: 'el-icon-user-solid' },
     children: [
       {
         path: 'list',
         name: 'List',
         component: () => import('@/views/user/userlist'),
         meta: { title: '用户管理', icon: 'el-icon-user-solid' }
+      },
+      {
+        path: 'resume',
+        name: 'Resume',
+        component: () => import('@/views/resume/resume'),
+        meta: { title: '简历页面', icon: 'el-icon-tickets' }
       },
     ]
   },
