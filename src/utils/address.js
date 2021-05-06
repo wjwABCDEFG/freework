@@ -8,7 +8,7 @@ export function addToStr(src) {
     return addressText
 }
 
-export function strToAdd(src) {
+export function strToAdd(src, len = 3) {
     let addTextArr = src.split('-')
     let addCodeArr = []
     let curNode = TextToCode[addTextArr[0]]
@@ -20,7 +20,7 @@ export function strToAdd(src) {
         i++
         curNode = curNode[addTextArr[i]]
     }
-    if(addCodeArr.length < 3) addCodeArr.push("")
+    if(addCodeArr.length < len) addCodeArr.push("")
 
     return addCodeArr
 }
