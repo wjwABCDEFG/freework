@@ -15,27 +15,27 @@
             <span class="freework-classic-text">电话:</span>
             <span class="freework-classic-text">{{ resumeData.basicInfo.phone }}</span>
           </div>
-          <el-divider direction="vertical" class="freework-classic-text"></el-divider>
+          <el-divider direction="vertical" class="freework-classic-text freework-classic-hr-vert"></el-divider>
           <div class="freework-classic-text">
             <span class="freework-classic-text">邮箱:</span>
             <span class="freework-classic-text">{{ resumeData.basicInfo.email }}</span>
           </div>
-          <el-divider direction="vertical" class="freework-classic-text"></el-divider>
+          <el-divider direction="vertical" class="freework-classic-text freework-classic-hr-vert"></el-divider>
           <div class="freework-classic-text">
             <span class="freework-classic-text">所在地:</span>
             <span class="freework-classic-text">{{ resumeData.basicInfo.city }}</span>
           </div>
-          <el-divider direction="vertical" class="freework-classic-text"></el-divider>
+          <el-divider direction="vertical" class="freework-classic-text freework-classic-hr-vert"></el-divider>
           <div class="freework-classic-text">
             <span class="freework-classic-text">微信:</span>
             <span class="freework-classic-text">{{ resumeData.basicInfo.wechat }}</span>
           </div>
-          <el-divider direction="vertical" class="freework-classic-text"></el-divider>
+          <el-divider direction="vertical" class="freework-classic-text freework-classic-hr-vert"></el-divider>
           <div class="freework-classic-text">
             <span class="freework-classic-text">年龄:</span>
             <span class="freework-classic-text">{{ calAge() }}</span>
           </div>
-          <el-divider direction="vertical" class="freework-classic-text"></el-divider>
+          <el-divider direction="vertical" class="freework-classic-text freework-classic-hr-vert"></el-divider>
           <div class="freework-classic-text">
             <span class="freework-classic-text">性别:</span>
             <span class="freework-classic-text">{{ resumeData.basicInfo.sex === 0 ? '男' : '女' }}</span>
@@ -52,7 +52,17 @@
       <!-- 教育经历 -->
       <div class="freework-classic-item" v-if="resumeData.edus">
         <span class="freework-classic-title">{{ resumeData.edus.title }}</span>
-        <el-divider class="freework-classic-hr" style="margin: 20px;background-color: red;"></el-divider>
+        <el-button
+          circle
+          plain
+          size="mini"
+          type="primary"
+          icon="el-icon-plus"
+          class="noprint freework-classic-add-button"
+          v-show="!edit"
+          @click="addNode('edus')"
+        ></el-button>
+        <el-divider class="freework-classic-hr"></el-divider>
         <div
           v-for="(edu, index) in resumeData.edus.children"
           :key="index"
@@ -89,6 +99,16 @@
       <!-- 实习经历 -->
       <div class="freework-classic-item" v-if="resumeData.internships">
         <span class="freework-classic-title">{{ resumeData.internships.title }}</span>
+        <el-button
+          circle
+          plain
+          size="mini"
+          type="primary"
+          icon="el-icon-plus"
+          class="freework-classic-add-button noprint"
+          v-show="!edit"
+          @click="addNode('internships')"
+        ></el-button>
         <el-divider class="freework-classic-hr"></el-divider>
         <div
           v-for="(internship, index) in resumeData.internships.children"
@@ -116,6 +136,16 @@
       <!-- 开源项目及作品 -->
       <div class="freework-classic-item" v-if="resumeData.projects">
         <span class="freework-classic-title">{{ resumeData.projects.title }}</span>
+        <el-button
+          circle
+          plain
+          size="mini"
+          type="primary"
+          icon="el-icon-plus"
+          class="freework-classic-add-button noprint"
+          v-show="!edit"
+          @click="addNode('projects')"
+        ></el-button>
         <el-divider class="freework-classic-hr"></el-divider>
         <div
           v-for="(project, index) in resumeData.projects.children"
@@ -153,6 +183,16 @@
       <!-- 社团和组织经历 -->
       <div class="freework-classic-item" v-if="resumeData.communities">
         <span class="freework-classic-title">{{ resumeData.communities.title }}</span>
+        <el-button
+          circle
+          plain
+          size="mini"
+          type="primary"
+          icon="el-icon-plus"
+          class="freework-classic-add-button noprint"
+          v-show="!edit"
+          @click="addNode('communities')"
+        ></el-button>
         <el-divider class="freework-classic-hr"></el-divider>
         <div
           v-for="(community, index) in resumeData.communities.children"
@@ -617,6 +657,8 @@ export default {
             "printerContainer"
           ).innerHTML;
           window.print();
+          window.location.reload();
+          //   setTimeout(() => {}, 1000); // 增加1s可以避免网络问题导致照片加载之前print
         });
       }, 2000);
     },
@@ -655,6 +697,44 @@ export default {
         this.communitiesEdit = true;
         this.curCommunityIdx = idx;
       }
+    },
+    // 添加节点
+    addNode(itemTag) {
+      let index = 0;
+      if (itemTag === "edus") {
+        this.resumeData.edus.children.push({
+          timerange: [
+            new Date().format("yyyy/MM"),
+            new Date().format("yyyy/MM"),
+          ],
+        });
+        index = this.resumeData.edus.children.length - 1;
+      } else if (itemTag === "internships") {
+        this.resumeData.internships.children.push({
+          timerange: [
+            new Date().format("yyyy/MM"),
+            new Date().format("yyyy/MM"),
+          ],
+        });
+        index = this.resumeData.internships.children.length - 1;
+      } else if (itemTag === "projects") {
+        this.resumeData.projects.children.push({
+          timerange: [
+            new Date().format("yyyy/MM"),
+            new Date().format("yyyy/MM"),
+          ],
+        });
+        index = this.resumeData.projects.children.length - 1;
+      } else if (itemTag === "communities") {
+        this.resumeData.communities.children.push({
+          timerange: [
+            new Date().format("yyyy/MM"),
+            new Date().format("yyyy/MM"),
+          ],
+        });
+        index = this.resumeData.communities.children.length - 1;
+      }
+      this.displayItem(itemTag, index);
     },
     // 保存编辑
     saveItem(itemTag) {
@@ -725,6 +805,7 @@ export default {
   height: 1169px; */
 }
 
+/* 编辑状态移到左边 */
 .box-card-edit {
   float: left;
   margin: 10px 10px;
@@ -736,19 +817,29 @@ export default {
   height: 1169px; */
 }
 
+/* 编辑框 */
 .item-edit-css {
   float: left;
   margin-top: 10px;
   width: 500px;
 }
 
+/* 添加item按钮 */
+.freework-classic-add-button {
+  position: absolute;
+  left: 275mm;
+  z-index: 99;
+}
+
+/* 打印按钮 */
 .download-css {
   position: fixed;
   z-index: 99; /*设置优先级显示，保证不会被覆盖*/
-  right: 20px;
-  bottom: 30px;
+  right: 30px;
+  bottom: 50px;
 }
 
+/* 基本信息和图片的摆放 */
 .freework-classic-infotextbox {
   float: left;
   width: 80%;
@@ -762,16 +853,19 @@ export default {
   margin-top: 2%;
 }
 
+/* 名字单独 */
 .freework-classic-name {
   font-weight: bold;
   font-size: 6mm;
 }
 
+/* title稍大 */
 .freework-classic-title {
   font-weight: bold;
   font-size: 5mm;
 }
 
+/* 分割线不设置样式不打印 */
 .freework-classic-hr {
   /* height: 0px;
   border-top: 2px solid #999;
@@ -783,10 +877,17 @@ export default {
   background-color: #999;
 }
 
+/* 垂直分割线 */
+.freework-classic-hr-vert {
+  border-left: 1px solid #dcdfe6;
+}
+
+/* 学校加粗 */
 .freework-classic-school {
   font-weight: bold;
 }
 
+/* 上传图片按钮框 */
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
@@ -814,7 +915,7 @@ export default {
   display: block;
 }
 
-/* 下面两个样式用于子div设置了float情况下父div自动换行，item用于一大板块，single-line用于板块内的细节div */
+/* 下面三个样式用于子div设置了float情况下父div自动换行，item用于一大板块，single-line用于板块内的细节div */
 .freework-classic-item {
   margin-top: 20px;
   overflow: hidden;
@@ -829,11 +930,13 @@ export default {
   overflow: hidden;
 }
 
+/* 正文字体 */
 .freework-classic-text {
   float: left;
   line-height: 23px;
 }
 
+/* 板块悬浮变色 */
 .freework-classic-hover {
   cursor: pointer;
 }
@@ -854,5 +957,11 @@ export default {
 
 .freework-classic-text p {
   margin: 0px;
+}
+
+@media print {
+  .noprint {
+    display: none;
+  }
 }
 </style>
