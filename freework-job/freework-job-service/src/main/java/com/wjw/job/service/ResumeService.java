@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wjw.job.entity.Resume;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wjw.job.entity.vo.RecruitmentVO;
+import com.wjw.job.entity.vo.ResumeVO;
 import com.wjw.job.mapper.ResumeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,9 @@ public class ResumeService extends ServiceImpl<ResumeMapper, Resume> {
         QueryWrapper<Resume> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id", userId);
         return resumeMapper.selectList(wrapper);
+    }
+
+    public List<ResumeVO> findAll() {
+        return resumeMapper.findAll();
     }
 }

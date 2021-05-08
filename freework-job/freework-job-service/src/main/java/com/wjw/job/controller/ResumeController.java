@@ -4,6 +4,7 @@ package com.wjw.job.controller;
 import com.wjw.common.entity.Result;
 import com.wjw.job.entity.Resume;
 import com.wjw.job.entity.vo.RecruitmentVO;
+import com.wjw.job.entity.vo.ResumeVO;
 import com.wjw.job.service.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -16,6 +17,7 @@ import java.util.List;
  * @date 2021/05/06 20:04
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/job/resume")
 public class ResumeController {
 
@@ -34,9 +36,15 @@ public class ResumeController {
         return Result.ok();
     }
 
+    @PostMapping("/update")
+    public Result updateResume(@RequestBody Resume resume){
+        resumeService.updateById(resume);
+        return Result.ok();
+    }
+
     @GetMapping("/findAll")
     public Result findAllResume(){
-        List<Resume> resumeList = resumeService.list(null);
+        List<ResumeVO> resumeList = resumeService.findAll();
         return Result.ok().data(resumeList);
     }
 
@@ -51,6 +59,12 @@ public class ResumeController {
     public Result findById(@PathVariable Long id){
         Resume resume = resumeService.getById(id);
         return Result.ok().data(resume);
+    }
+
+    @PostMapping("/removeBatch")
+    public Result removeBatch(@RequestBody List<Long> rids){
+        resumeService.removeByIds(rids);
+        return Result.ok();
     }
 }
 
