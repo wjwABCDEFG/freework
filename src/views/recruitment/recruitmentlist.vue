@@ -201,7 +201,6 @@ export default {
       let rids = this.multipleSelection.map((item) => {
         return item.id;
       });
-      console.log(rids);
       this.$http
         .post(`http://localhost:9000/job/recruitment/removeBatch`, rids)
         .then((resp) => {

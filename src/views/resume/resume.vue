@@ -46,7 +46,11 @@
           </div>
         </div>
         <div class="freework-classic-photo">
-          <el-image :src="resumeData.basicInfo.photo" fit="fill"></el-image>
+          <el-image :src="resumeData.basicInfo.photo" fit="fill">
+            <div slot="error" class="image-slot">
+              <i class="el-icon-s-custom"></i>照片
+            </div>
+          </el-image>
         </div>
       </div>
       <!-- 教育经历 -->
@@ -74,7 +78,7 @@
             <div
               class="freework-classic-text"
               style="float: right;"
-            >{{edu.timerange[0]}} - {{edu.timerange[1]}}</div>
+            >{{edu.timerange ? edu.timerange[0] + ' - ' + edu.timerange[1] : ''}}</div>
           </div>
           <div class="freework-classic-single-line">
             <span class="freework-classic-text">{{edu.degree}} {{edu.faculty}} {{edu.major}}</span>
@@ -121,7 +125,7 @@
             <div
               class="freework-classic-text"
               style="float: right;"
-            >{{internship.timerange[0]}} - {{internship.timerange[1]}}</div>
+            >{{ internship.timerange ? internship.timerange[0] + ' - ' + internship.timerange[1] : ''}}</div>
           </div>
           <div class="freework-classic-single-line">
             <span
@@ -158,7 +162,7 @@
             <div
               class="freework-classic-text"
               style="float: right;"
-            >{{project.timerange[0]}} - {{project.timerange[1]}}</div>
+            >{{project.timerange ? project.timerange[0] + ' - ' + project.timerange[1] : ''}}</div>
           </div>
           <div class="freework-classic-single-line">
             <span class="freework-classic-text">{{project.duty}}</span>
@@ -205,7 +209,7 @@
             <div
               class="freework-classic-text"
               style="float: right;"
-            >{{community.timerange[0]}} - {{community.timerange[1]}}</div>
+            >{{community.timerange ? community.timerange[0] + ' - ' + community.timerange[1] : ''}}</div>
           </div>
           <div class="freework-classic-single-line">
             <span class="freework-classic-text">{{community.duty}}</span>
@@ -474,147 +478,52 @@ export default {
       fullscreenLoading: false,
       edit: false,
       resumeModel: ["basicInfo", "edus", "skills", "internships"],
+      resumeId: "",
+      resumeName: "简历1", // TODO 根据名字+日期
       resumeData: {
-        title: "温嘉伟简历1",
+        title: "简历name", //TODO
         basicInfo: {
           title: "基本信息",
-          name: "温嘉伟",
-          photo:
-            "http://image.wjw.today/group1/M00/00/01/cx3BSmCQO86AGIUCAAJ5IFnKu4w745.png",
-          phone: "13076271026",
-          email: "wjw990518@163.com",
-          city: "广东省-韶关市",
-          wechat: "wjw13076271026",
-          sex: 0,
-          birthday: new Date(1999, 4, 18),
-          status: "广东海洋大学 2021届 软件工程 本科生",
+          name: "姓名",
+          photo: "",
+          phone: "",
+          email: "",
+          city: "",
+          wechat: "",
+          sex: "",
+          birthday: new Date(),
+          status: "",
           sort: 0,
         },
         edus: {
           title: "教育经历",
-          children: [
-            {
-              school: "广东海洋大学",
-              major: "软件工程",
-              degree: "本科",
-              faculty: "数学与计算机学院",
-              city: "广东湛江",
-              timerange: ["2017/09", "2021/06"],
-              beginTime: "2017/09",
-              endTime: "2021/06",
-              experiences: `<ul>
-<li>
-<p>在校GPA3.5+，专业前10%，已过英语四级</p>
-</li>
-<li>
-<p>参加大学生创新创业大赛获省级立项，有论文一篇（已被EI, Scopus检索）</p>
-</li>
-<li>
-<p>广东海洋大学技术团队创忆团队成员，作为主力人员参与多个项目的研发</p>
-</li>
-<li>
-<p>修读数据结构与算法，数据库原理及应用，计算机组成与结构，web开发技术，计算机网络，操作系统，软件工程等课程</p>
-</li>
-</ul>`,
-            },
-            {
-              school: "广东海洋大学",
-              major: "软件工程",
-              degree: "硕士",
-              faculty: "数学与计算机学院",
-              city: "广东湛江",
-              timerange: ["2017/09", "2021/06"],
-              beginTime: "2017/09",
-              endTime: "2021/06",
-              experiences: `<ul>
-            <li>
-            <p>在校GPA4.0+，专业前10%，已过英语四级</p>
-            </li>
-            <li>
-            <p>参加大学生创新创业大赛获省级立项，有论文一篇（已被EI, Scopus检索）</p>
-            </li>
-            <li>
-            <p>广东海洋大学技术团队创忆团队成员，作为主力人员参与多个项目的研发</p>
-            </li>
-            <li>
-            <p>修读数据结构与算法，数据库原理及应用，计算机组成与结构，web开发技术，计算机网络，操作系统，软件工程等课程</p>
-            </li>
-            </ul>`,
-            },
-          ],
+          children: [{}],
           sort: 1,
         },
         skills: {
           title: "专业技能",
-          desc:
-            "<ul>\n<li>\n<p>熟悉Java面向对象，集合和多线程相关等基础知识</p>\n</li>\n<li>\n<p>熟悉MySQL数据库，MySQL事务、索引和SQL调优</p>\n</li>\n<li>\n<p>熟悉Spring、SpringMVC、SpringBoot开源框架，了解SpringCloud微服务</p>\n</li>\n<li>\n<p>熟悉Redis和RabbitMQ等中间件</p>\n</li>\n<li>\n<p>熟悉Linux常用命令，熟练使用Git工具</p>\n</li>\n<li>\n<p>掌握HTML、CSS和JS，了解Python和神经网络</p>\n</li>\n</ul>",
-          sort: 3,
+          desc: "",
+          sort: 2,
         },
         internships: {
           title: "实习经历",
-          children: [
-            {
-              companyName: "深圳云之家网络有限公司",
-              position: "Java后台开发实习生",
-              department: "产品与项目交付部",
-              city: "广东深圳",
-              timerange: ["2020/08", "2020/11"],
-              beginTime: "2020/08",
-              endTime: "2020/11",
-              desc:
-                "<ul>\n<li>职责：目前在深圳云之家网络有限公司（金蝶）实习，参与云之家生态圈项目，和部门另一位同事负责生态圈接入金蝶苍穹系统，企业官网定制化项目。目前正在实习和学习中。</li>\n<li>成果：获得云之家9月月度激励奖</li>\n</ul>",
-            },
-            // {
-            //   companyName: "深圳云之家网络有限公司",
-            //   position: "Java后台开发实习生",
-            //   department: "产品与项目交付部",
-            //   city: "广东深圳",
-            //   timerange: ["2020/08", "2020/11"],
-            //   beginTime: "2020/08",
-            //   endTime: "2020/11",
-            //   desc:
-            //     "<ul>\n<li>职责：目前在深圳云之家网络有限公司（金蝶）实习，参与云之家生态圈项目，和部门另一位同事负责生态圈接入金蝶苍穹系统，企业官网定制化项目。目前正在实习和学习中。</li>\n<li>成果：获得云之家9月月度激励奖</li>\n</ul>",
-            // },
-          ],
-          sort: 2,
+          children: [{}],
+          sort: 3,
         },
         projects: {
           title: "开源项目和作品",
-          children: [
-            {
-              projectName: "基于深度学习的养殖水质分析决策系统",
-              duty: "Java后台开发实习生",
-              city: "广东深圳",
-              timerange: ["2020/08", "2020/11"],
-              beginTime: "2020/08",
-              endTime: "2020/11",
-              desc:
-                "<ul>\n<li>职责：目前在深圳云之家网络有限公司（金蝶）实习，参与云之家生态圈项目，和部门另一位同事负责生态圈接入金蝶苍穹系统，企业官网定制化项目。目前正在实习和学习中。</li>\n<li>成果：获得云之家9月月度激励奖</li>\n</ul>",
-            },
-          ],
-          sort: 2,
+          children: [{}],
+          sort: 4,
         },
         summaries: {
           title: "个人总结",
-          desc:
-            "<ul>\n<li>\n<p>对待工作认真负责，时刻保持学习热情，坚持维护个人技术博客</p>\n</li>\n<li>\n<p>熟悉MySQL数据库，MySQL事务、索引和SQL调优</p>\n</li>\n<li>\n<p>熟悉Spring、SpringMVC、SpringBoot开源框架，了解SpringCloud微服务</p>\n</li>\n<li>\n<p>熟悉Redis和RabbitMQ等中间件</p>\n</li>\n<li>\n<p>熟悉Linux常用命令，熟练使用Git工具</p>\n</li>\n<li>\n<p>掌握HTML、CSS和JS，了解Python和神经网络</p>\n</li>\n</ul>",
+          desc: "",
           sort: 3,
         },
         communities: {
           title: "社团和组织经历",
-          children: [
-            {
-              activityName: "国家资助下乡行",
-              duty: "Java后台开发实习生",
-              city: "广东深圳",
-              timerange: ["2020/08", "2020/11"],
-              beginTime: "2020/08",
-              endTime: "2020/11",
-              desc:
-                "<ul>\n<li>职责：目前在深圳云之家网络有限公司（金蝶）实习，参与云之家生态圈项目，和部门另一位同事负责生态圈接入金蝶苍穹系统，企业官网定制化项目。目前正在实习和学习中。</li>\n<li>成果：获得云之家9月月度激励奖</li>\n</ul>",
-            },
-          ],
-          sort: 2,
+          children: [{}],
+          sort: 5,
         },
       },
       basicInfoEdit: false,
@@ -642,10 +551,6 @@ export default {
       curCommunityIdx: 0,
     };
   },
-  mounted() {
-    // 调试时候方便在控制台通过vue.dataName输出data中的值
-    window.vue = this;
-  },
   methods: {
     // 打印简历pdf
     downloadPDF() {
@@ -657,14 +562,14 @@ export default {
             "printerContainer"
           ).innerHTML;
           window.print();
-          window.location.reload();
+          location.reload();
           //   setTimeout(() => {}, 1000); // 增加1s可以避免网络问题导致照片加载之前print
         });
       }, 2000);
     },
     // 计算年龄
     calAge() {
-      return calYearSub(this.resumeData.basicInfo.birthday, new Date());
+      return calYearSub( new Date(this.resumeData.basicInfo.birthday), new Date());
     },
     // 显示对应模块编辑框
     displayItem(itemTag, idx) {
@@ -746,6 +651,7 @@ export default {
       else if (itemTag === "projects") this.projectsEdit = false;
       else if (itemTag === "summaries") this.summariesEdit = false;
       else if (itemTag === "communities") this.communitiesEdit = false;
+      this.saveOrUpdate();
     },
     // 取消编辑
     quitItemEdit(itemTag) {
@@ -789,6 +695,92 @@ export default {
       }
       return (isJPG || isPNG) && isLt5M;
     },
+    // 保存或更新
+    saveOrUpdate() {
+      if (!this.resumeId) {
+        this.save();
+      } else {
+        this.update();
+      }
+    },
+    // 保存简历
+    save() {
+      this.$http
+        .post(`http://localhost:9000/job/resume/add`, {
+          userId: "1352149079043358725", // TODO 改为当前用户id
+          resumeName: this.resumeName,
+          resumeData: JSON.stringify(this.resumeData),
+        })
+        .then((resp) => {
+          if (resp.data.code != 2000) {
+            //操作错误，友好提示
+            this.$message({
+              type: "error",
+              message: "失败! 错误码:" + resp.data.code,
+            });
+            return;
+          }
+          this.$message({
+            type: "success",
+            message: "保存成功",
+          });
+        });
+    },
+    // 更新
+    update() {
+      this.$http
+        .post(`http://localhost:9000/job/resume/update`, {
+          id: this.resumeId,
+          userId: "1352149079043358725", // TODO 改为当前用户id
+          resumeName: this.resumeName,
+          resumeData: JSON.stringify(this.resumeData),
+        })
+        .then((resp) => {
+          if (resp.data.code != 2000) {
+            //操作错误，友好提示
+            this.$message({
+              type: "error",
+              message: "失败! 错误码:" + resp.data.code,
+            });
+            return;
+          }
+          this.$message({
+            type: "success",
+            message: "保存成功",
+          });
+        });
+    },
+    // 根据id查询简历
+    getResume(id) {
+      this.$http
+        .get(`http://localhost:9000/job/resume/findById/${id}`)
+        .then((resp) => {
+          if (resp.data.code != 2000) {
+            //操作错误，友好提示
+            this.$message({
+              type: "error",
+              message: "失败! 错误码:" + resp.data.code,
+            });
+            return;
+          }
+          let resumeInfo = resp.data.data;
+          this.resumeId = resumeInfo.id;
+          this.resumeName = resumeInfo.resumeName;
+          this.resumeData = JSON.parse(resumeInfo.resumeData);
+        });
+    },
+  },
+
+  created() {
+    // 根据路径是否有id判断当前是添加还是修改
+    if (this.$route.params && this.$route.params.id) {
+      const id = this.$route.params.id;
+      this.getResume(id);
+    }
+  },
+  mounted() {
+    // 调试时候方便在控制台通过vue.dataName输出data中的值
+    window.vue = this;
   },
 };
 </script>
@@ -827,7 +819,7 @@ export default {
 /* 添加item按钮 */
 .freework-classic-add-button {
   position: absolute;
-  left: 275mm;
+  left: 75%;
   z-index: 99;
 }
 
@@ -853,6 +845,11 @@ export default {
   margin-top: 2%;
 }
 
+.image-slot {
+  width: 100px;
+  height: 100px;
+}
+
 /* 名字单独 */
 .freework-classic-name {
   font-weight: bold;
@@ -867,11 +864,6 @@ export default {
 
 /* 分割线不设置样式不打印 */
 .freework-classic-hr {
-  /* height: 0px;
-  border-top: 2px solid #999;
-  border-right: 0px;
-  border-bottom: 0px;
-  border-left: 0px; */
   margin: 2px;
   border-top: 1px solid;
   background-color: #999;
@@ -959,6 +951,7 @@ export default {
   margin: 0px;
 }
 
+/* 打印时隐藏的标签 */
 @media print {
   .noprint {
     display: none;

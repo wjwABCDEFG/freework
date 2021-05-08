@@ -196,10 +196,12 @@ export default {
   margin: 20px;
 }
 
+/* 图片框 */
 .logo-height-css {
   height: 60px; /* logo外层div限定高度 */
 }
 
+/* 图片 */
 .logo-height-css > img {
   height: 100%; /* logo本身会扩大至外层同高 */
   vertical-align: middle;

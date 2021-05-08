@@ -104,10 +104,23 @@ export const constantRoutes = [
         meta: { title: '用户管理', icon: 'el-icon-user-solid' }
       },
       {
+        path: 'resumelist',
+        name: 'Resumelist',
+        component: () => import('@/views/resume/resumelist'),
+        meta: { title: '简历列表', icon: 'el-icon-user-solid' }
+      },
+      {
         path: 'resume',
         name: 'Resume',
         component: () => import('@/views/resume/resume'),
         meta: { title: '简历页面', icon: 'el-icon-tickets' }
+      },
+      {
+        path: 'resumeedit/:id',
+        name: 'Resumeedit',
+        component: () => import('@/views/resume/resume'),
+        meta: { title: '简历页面', noCache: true},
+        hidden: true
       },
     ]
   },
