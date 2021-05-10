@@ -1,0 +1,26 @@
+# 服务端口
+server:
+  port: 9004
+
+
+
+spring:
+  application:
+    # 服务名
+    name: service-vod
+  profiles:
+    # 环境设置：dev、test、prod
+    active: dev
+  servlet:
+    multipart:
+      # 最大上传单个文件大小：默认1M
+      max-file-size: 1024MB
+      # 最大置总上传的数据大小 ：默认10M
+      max-request-size: 1024MB
+
+# 阿里云 vod
+aliyun:
+  vod:
+    file:
+      keyid: LTAI5tMy2iXWoR39QuqKaSbk
+      keysecret: cKx0YIUSpvN15hdrNkLcAzrGO332Jj

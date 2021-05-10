@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>freework-job-service</module>
+        <module>freework-vod-service</module>
     </modules>
 
     <dependencies>

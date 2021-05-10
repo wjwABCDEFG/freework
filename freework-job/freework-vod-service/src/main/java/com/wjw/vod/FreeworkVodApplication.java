@@ -1,4 +1,4 @@
-package com.wjw.upload;
+package com.wjw.vod;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,13 +7,13 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author wjw
- * @date 2021/3/4 17:52
+ * @date 2021/5/9 21:29
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan(basePackages = {"com.wjw"})
-public class FreeworkUploadApplication {
+public class FreeworkVodApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FreeworkUploadApplication.class, args);
+        SpringApplication.run(FreeworkVodApplication.class, args);
     }
 }
