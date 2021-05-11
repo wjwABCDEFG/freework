@@ -2,10 +2,12 @@ package com.wjw.job.controller;
 
 
 import com.wjw.common.entity.Result;
+import com.wjw.job.client.VodClient;
 import com.wjw.job.entity.Resume;
 import com.wjw.job.entity.Video;
 import com.wjw.job.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,8 @@ public class VideoController {
     }
 
     @DeleteMapping("/remove/{id}")
-    public Result removeResume(@PathVariable Long id){
-        videoService.removeById(id);
+    public Result removeVideo(@PathVariable Long id){
+        videoService.removeVideo(id);
         return Result.ok();
     }
 

@@ -25,7 +25,7 @@ public class VodController {
         return Result.ok().data(videoId);
     }
 
-    @DeleteMapping("{videoId}")
+    @DeleteMapping("/remove/{videoId}")
     public Result removeVideo(@ApiParam(name = "videoId", value = "云端视频id", required = true)
                          @PathVariable String videoId){
         vodService.removeVideo(videoId);

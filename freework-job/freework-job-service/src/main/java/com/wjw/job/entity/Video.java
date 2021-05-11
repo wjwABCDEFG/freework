@@ -1,5 +1,6 @@
 package com.wjw.job.entity;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
@@ -42,6 +43,7 @@ public class Video extends BaseDomain {
     private Long uploader;
 
     @ApiModelProperty(value = "0可用 1不可用")
+    @TableLogic
     private Integer status;
 
     public Long getId() {

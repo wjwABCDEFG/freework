@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: freework-service
+    name: job-service
   profiles:
     active: dev   #TODO 发布的时候修改环境
   datasource:
@@ -11,10 +11,28 @@ spring:
     url: jdbc:mysql://localhost:3306/freework?serverTimezone=GMT%2B8
     username: root
     password: 0751@@@wjw
-
+  cloud:
+    nacos:
+      discovery:
+        # nacos服务地址
+        server-addr: 127.0.0.1:8848
 #mybatis日志，配置log4j或者logback后可以删掉
 #mybatis-plus:
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 mybatis-plus:
   mapper-locations: classpath:com/wjw/job/mapper/xml/*.xml
+
+#开启熔断机制
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            # 设置hystrix超时时间，默认1000ms
+            timeoutInMilliseconds: 10000
