@@ -317,6 +317,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveItem('edus')">保存</el-button>
+          <el-button @click="deleteItem('edus')">删除</el-button>
           <!-- <el-button @click="quitItemEdit('edus')">取消</el-button> -->
         </el-form-item>
       </el-form>
@@ -373,6 +374,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveItem('internships')">保存</el-button>
+          <el-button @click="deleteItem('internships')">删除</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -408,6 +410,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveItem('projects')">保存</el-button>
+          <el-button @click="deleteItem('projects')">删除</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -456,6 +459,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveItem('communities')">保存</el-button>
+          <el-button @click="deleteItem('communities')">删除</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -569,7 +573,10 @@ export default {
     },
     // 计算年龄
     calAge() {
-      return calYearSub( new Date(this.resumeData.basicInfo.birthday), new Date());
+      return calYearSub(
+        new Date(this.resumeData.basicInfo.birthday),
+        new Date()
+      );
     },
     // 显示对应模块编辑框
     displayItem(itemTag, idx) {
@@ -640,6 +647,28 @@ export default {
         index = this.resumeData.communities.children.length - 1;
       }
       this.displayItem(itemTag, index);
+    },
+    // 删除节点
+    deleteItem(itemTag) {
+      if (itemTag === "edus") {
+        this.resumeData.edus.children.splice(this.curEduIdx, 1);
+        this.edusEdit = false;
+        this.curEduIdx = 0;
+      } else if (itemTag === "internships") {
+        this.resumeData.internships.children.splice(this.curInternshipIdx, 1);
+        this.internshipsEdit = false;
+        this.curInternshipIdx = 0;
+      } else if (itemTag === "projects") {
+        this.resumeData.projects.children.splice(this.curProjectIdx, 1);
+        this.projectsEdit = false;
+        this.curProjectIdx = 0;
+      } else if (itemTag === "communities") {
+        this.resumeData.communities.children.splice(this.curCommunityIdx, 1);
+        this.communitiesEdit = false;
+        this.curCommunityIdx = 0;
+      }
+      this.saveOrUpdate();
+      this.edit = false;
     },
     // 保存编辑
     saveItem(itemTag) {
@@ -722,7 +751,7 @@ export default {
           }
           this.$message({
             type: "success",
-            message: "保存成功",
+            message: "已保存",
           });
         });
     },
@@ -746,7 +775,7 @@ export default {
           }
           this.$message({
             type: "success",
-            message: "保存成功",
+            message: "已保存",
           });
         });
     },

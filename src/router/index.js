@@ -147,6 +147,21 @@ export const constantRoutes = [
   },
 
   {
+    path: '/video',
+    component: Layout,
+    name: 'Video',
+    meta: { title: '视频管理', icon: 'el-icon-s-flag' },
+    children: [
+      {
+        path: 'list',
+        name: 'List',
+        component: () => import('@/views/video/videolist'),
+        meta: { title: '视频管理', icon: 'el-icon-video-camera-solid' }
+      },
+    ]
+  },
+
+  {
     path: '/statistic',
     component: Layout,
     redirect: '/statistic/userdata',
