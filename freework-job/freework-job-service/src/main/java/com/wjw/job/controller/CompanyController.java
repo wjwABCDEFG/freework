@@ -56,15 +56,28 @@ public class CompanyController {
         return Result.ok().data(company);
     }
 
+    /**
+     * 根据文件名获取静态资源，比如行业json
+     * @param fileName 文件名
+     */
     @GetMapping("/static")
-    public Result updateCompany(String fileName){
+    public Result getStatic(String fileName){
         String res = JsonUtil.readJsonStrFromFile(fileName);
         return Result.ok().data(res);
     }
 
     @GetMapping("/findNameAndId")
     public Result findNameAndId(){
-        List<Company> companies = this.companyService.findNameAndId();
+        List<Company> companies = companyService.findNameAndId();
+        return Result.ok().data(companies);
+    }
+
+    /**
+     * 查找待审批列表
+     */
+    @GetMapping("/findNotAllow")
+    public Result findNotAllow(){
+        List<Company> companies = companyService.findNotAllow();
         return Result.ok().data(companies);
     }
 }

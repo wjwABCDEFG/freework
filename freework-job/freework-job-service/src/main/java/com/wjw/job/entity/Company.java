@@ -32,8 +32,9 @@ public class Company extends BaseDomain {
     private Double registeredCapital;   // 注册资本，单位：万元
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date registeredTime;        // 公司注册时间
+    private Integer auth;               // 是否审批
     @TableLogic
-    private Integer status;              // 可用状态
+    private Integer status;             // 可用状态
 
     public Long getId() {
         return id;
@@ -153,5 +154,13 @@ public class Company extends BaseDomain {
 
     public void setDetailAddress(String detailAddress) {
         this.detailAddress = detailAddress;
+    }
+
+    public Integer getAuth() {
+        return auth;
+    }
+
+    public void setAuth(Integer auth) {
+        this.auth = auth;
     }
 }

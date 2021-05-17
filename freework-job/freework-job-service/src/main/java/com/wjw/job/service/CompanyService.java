@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wjw.common.enums.ErrCodeEnum;
 import com.wjw.common.exception.FreeworkException;
+import com.wjw.job.constant.CompanyAuth;
 import com.wjw.job.entity.Company;
 import com.wjw.job.entity.vo.CompanyQuery;
 import com.wjw.job.mapper.CompanyMapper;
@@ -33,11 +34,13 @@ public class CompanyService extends ServiceImpl<CompanyMapper, Company> {
      * @param companyQuery 条件
      */
     public void pageQuery(Page<Company> pageInfo, CompanyQuery companyQuery){
+        QueryWrapper<Company> wrapper = new QueryWrapper<>();
+        wrapper.eq("auth", CompanyAuth.ALLOW);
+
         if (companyQuery == null){
-            companyMapper.selectPage(pageInfo, null);
+            companyMapper.selectPage(pageInfo, wrapper);
             return ;
         }
-        QueryWrapper<Company> wrapper = new QueryWrapper<>();
 
         String companyName = companyQuery.getCompanyName();
         String address = companyQuery.getAddress();
@@ -61,5 +64,12 @@ public class CompanyService extends ServiceImpl<CompanyMapper, Company> {
 
         if (CollectionUtils.isEmpty(companyList)) throw new FreeworkException(ErrCodeEnum.NONECOMPANYINFO);
         return companyList;
+    }
+
+    public List<Company> findNotAllow() {
+        QueryWrapper<Company> wrapper = new QueryWrapper<>();
+        wrapper.eq("auth", CompanyAuth.NOT_ALLOW);
+        List<Company> companies = companyMapper.selectList(wrapper);
+        return companies;
     }
 }

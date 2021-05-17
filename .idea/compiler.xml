@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="freework-job-service" />
+        <module name="freework-job-cms" />
         <module name="freework-upload" />
         <module name="freework-vod-service" />
         <module name="freework-common" />
