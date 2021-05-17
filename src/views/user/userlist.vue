@@ -1,36 +1,65 @@
 <template>
-  <div class="components-container">
-    <aside>
-      Rich text is a core feature of the management backend, but at the same time it is a place with lots of pits. In the process of selecting rich texts, I also took a lot of detours. The common rich texts on the market have been basically used, and I finally chose Tinymce. See the more detailed rich text comparison and introduction.
-      <a target="_blank" class="link-type" href="https://panjiachen.github.io/vue-element-admin-site/feature/component/rich-editor.html">Documentation</a>
-    </aside>
-    <div>
-      <tinymce v-model="content" :height="300" />
-    </div>
-    <div class="editor-content" v-html="content" />
+  <div>
+    <el-tree
+      :data="data"
+      node-key="id"
+      default-expand-all
+      @node-drag-end="handleDragEnd"
+      @node-drop="handleDrop"
+      draggable
+      :allow-drop="allowDrop"
+      allow-drag="true"
+    ></el-tree>
   </div>
 </template>
 
 <script>
-import Tinymce from '@/components/Tinymce'
-
 export default {
-  name: 'TinymceDemo',
-  components: { Tinymce },
   data() {
     return {
-      content:
-      `<h1 style="text-align: center;">Welcome to the TinyMCE demo!</h1><p style="text-align: center; font-size: 15px;"><img title="TinyMCE Logo" src="//www.tinymce.com/images/glyph-tinymce@2x.png" alt="TinyMCE Logo" width="110" height="97" /><ul>
-        <li>Our <a href="//www.tinymce.com/docs/">documentation</a> is a great resource for learning how to configure TinyMCE.</li><li>Have a specific question? Visit the <a href="https://community.tinymce.com/forum/">Community Forum</a>.</li><li>We also offer enterprise grade support as part of <a href="https://tinymce.com/pricing">TinyMCE premium subscriptions</a>.</li>
-      </ul>`
-    }
-  }
-}
+      data: [
+        {
+          id: 1,
+          label: "一级 1",
+        },
+        {
+          id: 2,
+          label: "一级 2",
+        },
+        {
+          id: 3,
+          label: "一级 3",
+        },
+      ],
+      defaultProps: {
+        children: "children",
+        label: "label",
+      },
+    };
+  },
+  methods: {
+    // handleDragStart(node, ev) {
+    //   console.log("drag start", node);
+    // },
+    // handleDragEnter(draggingNode, dropNode, ev) {
+    //   console.log("tree drag enter: ", dropNode.label);
+    // },
+    // handleDragLeave(draggingNode, dropNode, ev) {
+    //   console.log("tree drag leave: ", dropNode.label);
+    // },
+    // handleDragOver(draggingNode, dropNode, ev) {
+    //   console.log("tree drag over: ", dropNode.label);
+    // },
+    handleDragEnd(draggingNode, dropNode, dropType, ev) {
+      console.log("tree drag end: ", dropNode && dropNode.label, dropType);
+    },
+    handleDrop(draggingNode, dropNode, dropType, ev) {
+      console.log("tree drop: ", dropNode.label, dropType);
+    },
+    allowDrop(draggingNode, dropNode, type) {
+      return true;
+    },
+  },
+};
 </script>
-
-<style scoped>
-.editor-content{
-  margin-top: 20px;
-}
-</style>
 
