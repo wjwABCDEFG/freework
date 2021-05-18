@@ -5,6 +5,7 @@ import com.wjw.common.entity.Result;
 import com.wjw.common.utils.JsonUtil;
 import com.wjw.job.entity.Company;
 import com.wjw.job.entity.vo.CompanyQuery;
+import com.wjw.job.entity.vo.RecruitmentVO;
 import com.wjw.job.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -75,9 +76,20 @@ public class CompanyController {
     /**
      * 查找待审批列表
      */
-    @GetMapping("/findNotAllow")
-    public Result findNotAllow(){
-        List<Company> companies = companyService.findNotAllow();
-        return Result.ok().data(companies);
+    @GetMapping("/findNotAllow/{pageNum}/{pageSize}")
+    public Result findNotAllow(@PathVariable long pageNum,
+                               @PathVariable long pageSize){
+        Page<Company> pageInfo = new Page<>(pageNum, pageSize);
+        companyService.findNotAllow(pageInfo);
+        return Result.ok().data(pageInfo);
+    }
+
+    /**
+     * 展示页首页固定展示4条信息
+     */
+    @GetMapping("/findIndex")
+    public Result findIndex(){
+        List<Company> companyList = companyService.findIndex();
+        return Result.ok().data(companyList);
     }
 }

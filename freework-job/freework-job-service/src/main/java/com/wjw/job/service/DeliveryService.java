@@ -1,17 +1,16 @@
 package com.wjw.job.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wjw.common.enums.ErrCodeEnum;
 import com.wjw.common.exception.FreeworkException;
 import com.wjw.common.utils.MailUtils;
 import com.wjw.job.constant.Progress;
 import com.wjw.job.entity.Delivery;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.wjw.job.entity.Recruitment;
 import com.wjw.job.entity.User;
 import com.wjw.job.mapper.DeliveryMapper;
 import com.wjw.job.mapper.RecruitmentMapper;
-import com.wjw.job.mapper.ResumeMapper;
 import com.wjw.job.mapper.UserMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +83,13 @@ public class DeliveryService extends ServiceImpl<DeliveryMapper, Delivery> {
             mailTitle = "[freework]求职进度更新提醒";
         }
         MailUtils.sendMail(user.getEmail(), msg, mailTitle);
+    }
+
+    public Page<Delivery> pageCandidatesByRecruitment(long recruitmentId, long pageNum, long pageSize) {
+        Page<Delivery> pageInfo = new Page<>(pageNum, pageSize);
+        QueryWrapper<Delivery> wrapper = new QueryWrapper<>();
+        wrapper.eq("recruitment_id", recruitmentId);
+        deliveryMapper.selectPage(pageInfo, wrapper);
+        return pageInfo;
     }
 }

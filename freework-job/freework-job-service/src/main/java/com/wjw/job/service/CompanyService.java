@@ -1,6 +1,7 @@
 package com.wjw.job.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wjw.common.enums.ErrCodeEnum;
@@ -66,10 +67,16 @@ public class CompanyService extends ServiceImpl<CompanyMapper, Company> {
         return companyList;
     }
 
-    public List<Company> findNotAllow() {
+    public void findNotAllow(Page<Company> pageInfo) {
         QueryWrapper<Company> wrapper = new QueryWrapper<>();
         wrapper.eq("auth", CompanyAuth.NOT_ALLOW);
-        List<Company> companies = companyMapper.selectList(wrapper);
-        return companies;
+        companyMapper.selectPage(pageInfo, wrapper);
+    }
+
+    public List<Company> findIndex() {
+        QueryWrapper<Company> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("id");
+        wrapper.last("limit 4");
+        return companyMapper.selectList(wrapper);
     }
 }

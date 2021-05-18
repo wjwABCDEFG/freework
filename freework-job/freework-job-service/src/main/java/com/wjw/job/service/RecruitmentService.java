@@ -1,5 +1,6 @@
 package com.wjw.job.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wjw.common.enums.ErrCodeEnum;
 import com.wjw.common.exception.FreeworkException;
@@ -74,5 +75,31 @@ public class RecruitmentService extends ServiceImpl<RecruitmentMapper, Recruitme
         detailVO.setHr(user);
 
         return detailVO;
+    }
+
+    public List<RecruitmentVO> findIndex() {
+        QueryWrapper<Recruitment> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("id");
+        wrapper.last("limit 8");
+        List<Recruitment> recList = recruitmentMapper.selectList(wrapper);
+        if (CollectionUtils.isEmpty(recList)) throw new FreeworkException(ErrCodeEnum.NONEJOBINFO);
+
+        List<RecruitmentVO> recVOList = new ArrayList<>();
+        for (Recruitment rec : recList) {
+            RecruitmentVO recVO = new RecruitmentVO();
+            BeanUtils.copyProperties(rec, recVO);
+
+            Company company = companyMapper.selectById(rec.getCompanyId());
+            if (company == null) throw new FreeworkException(ErrCodeEnum.NONECOMPANYINFO);
+            recVO.setCompany(company);
+
+            User user = userMapper.selectById(rec.getHrId());
+            if (user == null) throw new FreeworkException(ErrCodeEnum.NONEUSERINFO);
+            recVO.setHr(user);
+
+            recVOList.add(recVO);
+        }
+
+        return recVOList;
     }
 }

@@ -57,4 +57,13 @@ public class RecruitmentController {
         recruitmentService.removeByIds(rids);
         return Result.ok();
     }
+
+    /**
+     * 展示页首页固定展示8条信息
+     */
+    @GetMapping("/findIndex")
+    public Result findIndex(){
+        List<RecruitmentVO> recruitmentList = recruitmentService.findIndex();
+        return Result.ok().data(recruitmentList);
+    }
 }

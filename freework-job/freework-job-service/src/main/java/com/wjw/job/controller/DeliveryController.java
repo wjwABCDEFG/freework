@@ -45,5 +45,13 @@ public class DeliveryController {
         deliveryService.page(pageInfo, null);
         return Result.ok().data(pageInfo);
     }
+
+    @GetMapping("/pageCandidatesByRec/{recruitmentId}/{pageNum}/{pageSize}")
+    public Result pageCandidatesByRecruitment(@PathVariable long recruitmentId,
+                                              @PathVariable long pageNum,
+                                              @PathVariable long pageSize){
+        Page<Delivery> pageInfo = deliveryService.pageCandidatesByRecruitment(recruitmentId, pageNum, pageSize);
+        return Result.ok().data(pageInfo);
+    }
 }
 
