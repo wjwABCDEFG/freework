@@ -6,8 +6,8 @@
       <div v-for="item in videoList" :key="item.id" class="card-kuang-css">
         <el-card class="box-card">
           <span>{{item.videoTitle}}</span>
-          <div class="logo-height-css">
-            <el-image :src="item.videoPic" fit="contain"></el-image>
+          <div>
+            <el-image :src="item.videoPic" fit="contain" class="logo-height-css"></el-image>
           </div>
           <el-button type="danger" icon="el-icon-delete" circle @click="delVideo(item.id)"></el-button>
         </el-card>
@@ -297,6 +297,7 @@ export default {
 .logo-height-css {
   margin: 0px auto;
   width: 300px;
+  height: 175px;
 }
 
 /* 图片 */

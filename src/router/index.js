@@ -84,7 +84,7 @@ export const constantRoutes = [
       {
         path: 'application',
         name: 'Application',
-        // component: () => import('@/views/table/index'),
+        component: () => import('@/views/company/applycompany'),
         meta: { title: '申请列表', icon: 'el-icon-coordinate' }
       },
     ]
