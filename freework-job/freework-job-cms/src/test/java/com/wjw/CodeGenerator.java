@@ -53,7 +53,7 @@
 //
 //        // 4、包配置
 //        PackageConfig pc = new PackageConfig();
-//        pc.setModuleName("job"); //模块名
+//        pc.setModuleName("cms"); //模块名
 //        pc.setParent("com.wjw");
 //        pc.setController("controller");
 //        pc.setEntity("entity");
@@ -63,7 +63,7 @@
 //
 //        // 5、策略配置
 //        StrategyConfig strategy = new StrategyConfig();
-//        strategy.setInclude("tb_delivery");   // 要生成的表
+//        strategy.setInclude("tb_banner");   // 要生成的表
 //        strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
 //        strategy.setTablePrefix("tb_"); //生成实体时去掉表前缀
 //

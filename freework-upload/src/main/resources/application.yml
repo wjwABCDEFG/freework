@@ -8,6 +8,20 @@ spring:
   servlet:
     multipart:
       max-file-size: 10MB   # 限制文件上传的大小
+  redis:
+    host: 115.29.193.74
+    port: 6379
+    password: 0751@@@wjw
+    database: 0
+    timeout: 1800000
+    lettuce:
+      pool:
+        max-active: 20
+        max-idle: 5
+        #最大阻塞等待时间(负数表示没限制)
+        max-wait: -1
+        min-idle: 0
+
 fdfs:
   so-timeout: 1501 # 超时时间
   connect-timeout: 601 # 连接超时时间

@@ -16,6 +16,19 @@ spring:
       discovery:
         # nacos服务地址
         server-addr: 127.0.0.1:8848
+  redis:
+    host: 115.29.193.74
+    port: 6379
+    password: 0751@@@wjw
+    database: 0
+    timeout: 1800000
+    lettuce:
+      pool:
+        max-active: 20
+        max-idle: 5
+        #最大阻塞等待时间(负数表示没限制)
+        max-wait: -1
+        min-idle: 0
 #mybatis日志，配置log4j或者logback后可以删掉
 #mybatis-plus:
 #  configuration:

@@ -28,19 +28,19 @@ public class BannerController {
 
     @PostMapping("/add")
     public Result addBanner(@RequestBody Banner banner){
-        bannerService.save(banner);
+        bannerService.addBanner(banner);
         return Result.ok();
     }
 
     @DeleteMapping("/remove/{id}")
     public Result removeBanner(@PathVariable Long id){
-        bannerService.removeById(id);
+        bannerService.removeBanner(id);
         return Result.ok();
     }
 
     @PostMapping("/update")
     public Result updateBanner(@RequestBody Banner banner){
-        bannerService.updateById(banner);
+        bannerService.updateBanner(banner);
         return Result.ok();
     }
 
