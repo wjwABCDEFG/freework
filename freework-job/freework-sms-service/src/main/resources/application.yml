@@ -1,9 +1,8 @@
 server:
-  port: 9000
-
+  port: 9005
 spring:
   application:
-    name: job-service
+    name: sms-service
   profiles:
     active: dev   #TODO 发布的时候修改环境
   datasource:
@@ -16,6 +15,9 @@ spring:
       discovery:
         # nacos服务地址
         server-addr: 127.0.0.1:8848
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   redis:
     host: 115.29.193.74
     port: 6379
@@ -29,23 +31,15 @@ spring:
         #最大阻塞等待时间(负数表示没限制)
         max-wait: -1
         min-idle: 0
-#mybatis日志，配置log4j或者logback后可以删掉
-#mybatis-plus:
+
+mybatis-plus:
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-mybatis-plus:
   mapper-locations: classpath:com/wjw/job/mapper/xml/*.xml
 
-#开启熔断机制
-feign:
-  hystrix:
-    enabled: true
-
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            # 设置hystrix超时时间，默认1000ms
-            timeoutInMilliseconds: 10000
+freework:
+  sms:
+    accessKeyId: LTAI5tMy2iXWoR39QuqKaSbk # 你自己的accessKeyId
+    accessKeySecret: cKx0YIUSpvN15hdrNkLcAzrGO332Jj # 你自己的AccessKeySecret
+    signName: wjw商城 # 签名名称
+    verifyCodeTemplate: SMS_196643222 # 模板code

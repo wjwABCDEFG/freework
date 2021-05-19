@@ -2,8 +2,6 @@
 server:
   port: 9004
 
-
-
 spring:
   application:
     # 服务名
@@ -27,7 +25,7 @@ spring:
     port: 6379
     password: 0751@@@wjw
     database: 0
-    timeout: 1800000
+    timeout: 0
     lettuce:
       pool:
         max-active: 20

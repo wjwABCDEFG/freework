@@ -15,6 +15,8 @@
         <module>freework-job-service</module>
         <module>freework-vod-service</module>
         <module>freework-job-cms</module>
+        <module>freework-sms-service</module>
+        <module>freework-user-service</module>
     </modules>
 
     <dependencies>
