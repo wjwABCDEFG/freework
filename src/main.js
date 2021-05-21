@@ -13,6 +13,8 @@ import App from './App'
 import store from './store'
 import router from './router'
 import axios from 'axios'
+import cookie from "js-cookie";
+
 
 import '@/icons' // icon
 import '@/permission' // permission control
