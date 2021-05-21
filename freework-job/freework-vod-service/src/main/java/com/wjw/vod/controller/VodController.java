@@ -31,4 +31,10 @@ public class VodController {
         vodService.removeVideo(videoId);
         return Result.ok().msg("视频删除成功");
     }
+
+    @GetMapping("/getVideoPath/{videoId}")
+    public Result getVideoPath(@PathVariable String videoId){
+        String path = vodService.getVideoPath(videoId);
+        return Result.ok().data(path);
+    }
 }

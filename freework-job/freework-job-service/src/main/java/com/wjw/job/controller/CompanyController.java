@@ -31,7 +31,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/remove/{id}")
-    public Result removeCompany(@PathVariable Long id){
+    public Result removeCompany(@PathVariable long id){
         companyService.removeById(id);
         return Result.ok();
     }
@@ -52,7 +52,7 @@ public class CompanyController {
     }
 
     @PostMapping("/findById/{id}")
-    public Result findCompanyById(@PathVariable Long id){
+    public Result findCompanyById(@PathVariable String id){
         Company company = companyService.getById(id);
         return Result.ok().data(company);
     }

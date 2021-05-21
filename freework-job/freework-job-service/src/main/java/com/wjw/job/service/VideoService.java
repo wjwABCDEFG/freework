@@ -5,12 +5,15 @@ import com.wjw.common.enums.ErrCodeEnum;
 import com.wjw.common.exception.FreeworkException;
 import com.wjw.job.client.VodClient;
 import com.wjw.job.entity.Video;
+import com.wjw.job.entity.vo.VideoVO;
 import com.wjw.job.mapper.VideoMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
  * @author wjw
@@ -39,5 +42,18 @@ public class VideoService extends ServiceImpl<VideoMapper, Video> {
             }
         }
         videoMapper.deleteById(id);
+    }
+
+    public List<VideoVO> findAll() {
+        List<VideoVO> voList = videoMapper.findAll();
+        for (VideoVO videoVO : voList) {
+            //远程调用获取视频连接方法
+            Result result = vodClient.getVideoPath(videoVO.getVideoSourceId());
+            if (result.getCode() != 2000 && "timeout".equals(result.getMsg())){
+                throw new FreeworkException(ErrCodeEnum.TIMEOUT);
+            }
+            videoVO.setVideoPath(result.getData().toString());
+        }
+        return voList;
     }
 }

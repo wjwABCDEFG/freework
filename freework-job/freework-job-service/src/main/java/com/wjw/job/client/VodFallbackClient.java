@@ -15,4 +15,10 @@ public class VodFallbackClient implements VodClient {
         return Result.error().msg("timeout");
     }
 
+    @Override
+    public Result getVideoPath(String videoId) {
+        return Result.error().msg("timeout");
+    }
+
+
 }

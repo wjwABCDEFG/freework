@@ -7,7 +7,8 @@
 <!--    </select>-->
 
         <select id="findHrById" resultType="com.wjw.job.entity.User" parameterType="java.lang.Long">
-            SELECT u.* FROM tb_recruitment r
+            SELECT u.*
+            FROM tb_recruitment r
             LEFT JOIN tb_user u
             ON r.hr_id = u.id
             WHERE r.id = #{id}

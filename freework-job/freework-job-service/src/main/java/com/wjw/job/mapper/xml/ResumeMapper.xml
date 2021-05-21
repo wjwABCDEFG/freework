@@ -3,7 +3,10 @@
 <mapper namespace="com.wjw.job.mapper.ResumeMapper">
 
         <select id="findAll" resultType="com.wjw.job.entity.vo.ResumeVO">
-            SELECT r.id, r.resume_name, u.name AS user_name, r.modified_time, r.modified_time FROM tb_resume r LEFT JOIN tb_user u ON r.user_id = u.id
+            SELECT r.id, r.resume_name, u.name AS user_name, r.create_time, r.modified_time
+            FROM tb_resume r
+            LEFT JOIN tb_user u
+            ON r.user_id = u.id
         </select>
 
 </mapper>

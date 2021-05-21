@@ -48,8 +48,8 @@ public class ResumeController {
         return Result.ok().data(resumeList);
     }
 
-    @GetMapping("/findByUser")
-    public Result findByUser(Long userId){
+    @GetMapping("/findByUser/{userId}")
+    public Result findByUser(@PathVariable String userId){
         List<Resume> resumeList = resumeService.findByUser(userId);
         if (CollectionUtils.isEmpty(resumeList)) return Result.ok().msg("立刻开始创建自己的简历吧！");
         return Result.ok().data(resumeList);
@@ -65,6 +65,18 @@ public class ResumeController {
     public Result removeBatch(@RequestBody List<Long> rids){
         resumeService.removeByIds(rids);
         return Result.ok();
+    }
+
+    /**
+     * 不包括简历内容
+     * @param userId
+     * @return
+     */
+    @GetMapping("/findSimpleByUser/{userId}")
+    public Result findSimpleByUser(@PathVariable String userId){
+        List<Resume> resumeList = resumeService.findSimpleByUser(userId);
+        if (CollectionUtils.isEmpty(resumeList)) return Result.ok().msg("立刻开始创建自己的简历吧！");
+        return Result.ok().data(resumeList);
     }
 }
 

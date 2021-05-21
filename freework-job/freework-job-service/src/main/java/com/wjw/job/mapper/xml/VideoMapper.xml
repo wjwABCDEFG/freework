@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wjw.job.mapper.VideoMapper">
 
+<!--    <select id="findAll" resultType="com.wjw.job.entity.vo.VideoVO">-->
+<!--        SELECT v.*, u.nickname-->
+<!--        FROM tb_video v-->
+<!--        LEFT JOIN tb_user u-->
+<!--        ON v.uploader = u.id-->
+<!--    </select>-->
+
 </mapper>

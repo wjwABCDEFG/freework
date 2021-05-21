@@ -25,7 +25,7 @@ public class ResumeService extends ServiceImpl<ResumeMapper, Resume> {
     @Autowired
     private ResumeMapper resumeMapper;
 
-    public List<Resume> findByUser(long userId) {
+    public List<Resume> findByUser(String userId) {
         QueryWrapper<Resume> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id", userId);
         return resumeMapper.selectList(wrapper);
@@ -33,5 +33,12 @@ public class ResumeService extends ServiceImpl<ResumeMapper, Resume> {
 
     public List<ResumeVO> findAll() {
         return resumeMapper.findAll();
+    }
+
+    public List<Resume> findSimpleByUser(String userId) {
+        QueryWrapper<Resume> wrapper = new QueryWrapper<>();
+        wrapper.select("id", "resume_name", "create_time", "modified_time");
+        wrapper.eq("user_id", userId);
+        return resumeMapper.selectList(wrapper);
     }
 }

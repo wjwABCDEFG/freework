@@ -35,7 +35,7 @@ public class DeliveryService extends ServiceImpl<DeliveryMapper, Delivery> {
     private UserMapper userMapper;
 
     // 投递简历
-    public void delivery(Long userId, Long recruitmentId, Long resumeId, int progress) {
+    public void delivery(long userId, long recruitmentId, long resumeId, int progress) {
         // 保存投递数据
         Delivery delivery = new Delivery();
         delivery.setUserId(userId);

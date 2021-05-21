@@ -5,6 +5,7 @@ import com.wjw.common.entity.Result;
 import com.wjw.job.client.VodClient;
 import com.wjw.job.entity.Resume;
 import com.wjw.job.entity.Video;
+import com.wjw.job.entity.vo.VideoVO;
 import com.wjw.job.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -38,7 +39,7 @@ public class VideoController {
 
     @GetMapping("/findAll")
     public Result findAll(){
-        List<Video> videoList = videoService.list(null);
+        List<VideoVO> videoList = videoService.findAll();
         return Result.ok().data(videoList);
     }
 

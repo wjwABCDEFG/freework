@@ -23,10 +23,11 @@ public class DeliveryController {
     private DeliveryService deliveryService;
 
     @PostMapping("/deliResume")
-    public Result delivery(@RequestParam("userId") Long userId,
-                           @RequestParam("recruitmentId") Long recruitmentId,
-                           @RequestParam("resumeId") Long resumeId){
-        deliveryService.delivery(userId, recruitmentId, resumeId, Progress.START);
+    public Result delivery(@RequestParam("userId") String userId,
+                           @RequestParam("recruitmentId") String recruitmentId,
+                           @RequestParam("resumeId") String resumeId){
+        deliveryService.delivery(Long.parseLong(userId), Long.parseLong(recruitmentId),
+                Long.parseLong(resumeId), Progress.START);
         return Result.ok();
     }
 

@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CompanyMapper extends BaseMapper<Company> {
+
+    Company findByName(String companyName);
 }
