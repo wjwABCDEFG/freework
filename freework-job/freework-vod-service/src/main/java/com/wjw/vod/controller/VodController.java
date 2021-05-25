@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2021/5/9 21:31
  */
 @RestController
-@CrossOrigin
 @RequestMapping("/vod/video")
 public class VodController {
 

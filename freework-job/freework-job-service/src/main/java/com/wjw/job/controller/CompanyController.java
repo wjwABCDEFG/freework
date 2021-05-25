@@ -17,7 +17,6 @@ import java.util.List;
  * @date 2021/4/8 0:57
  */
 @RestController
-@CrossOrigin
 @RequestMapping("/job/company")
 public class CompanyController {
 
@@ -82,6 +81,12 @@ public class CompanyController {
         Page<Company> pageInfo = new Page<>(pageNum, pageSize);
         companyService.findNotAllow(pageInfo);
         return Result.ok().data(pageInfo);
+    }
+
+    @PostMapping("/check")
+    public Result check(@RequestBody Company company){
+        companyService.check(company);
+        return Result.ok();
     }
 
     /**

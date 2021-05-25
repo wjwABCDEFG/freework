@@ -60,6 +60,7 @@ public final class MailUtils {
             message.setContent(text, "text/html;charset=UTF-8");
             // 发送邮件
             Transport.send(message);
+            System.out.println("邮件发送成功");
             return true;
         }catch (Exception e){
             e.printStackTrace();

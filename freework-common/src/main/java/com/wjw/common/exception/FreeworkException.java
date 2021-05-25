@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
  * @author wjw
  * @date 2021/1/21 21:11
  */
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class FreeworkException extends RuntimeException {
@@ -22,5 +21,21 @@ public class FreeworkException extends RuntimeException {
     public FreeworkException(ErrCodeEnum errCodeEnum){
         this.code = errCodeEnum.getErrCode();
         this.msg = errCodeEnum.getErrMsg();
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

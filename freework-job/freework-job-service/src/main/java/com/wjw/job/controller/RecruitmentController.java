@@ -20,7 +20,6 @@ import java.util.Map;
  * @date 2021/4/20 2:07
  */
 @RestController
-@CrossOrigin
 @RequestMapping("/job/recruitment")
 public class RecruitmentController {
 
@@ -84,6 +83,12 @@ public class RecruitmentController {
     @GetMapping("/findByCompanyId/{companyId}")
     public Result findByCompanyId(@PathVariable String companyId){
         List<RecruitmentVO> recruitmentList = recruitmentService.findByCompanyId(companyId);
+        return Result.ok().data(recruitmentList);
+    }
+
+    @GetMapping("/findByHrId/{hrId}")
+    public Result findByHrId(@PathVariable String hrId){
+        List<Recruitment> recruitmentList = recruitmentService.findByHrId(hrId);
         return Result.ok().data(recruitmentList);
     }
 }

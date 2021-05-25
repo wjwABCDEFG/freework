@@ -15,6 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(FreeworkException.class)
+    @ResponseBody
+    public Result error(FreeworkException e){
+        e.printStackTrace();
+        log.error(e.getMessage());
+        return Result.error().code(e.getCode()).msg(e.getMsg());
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public Result error(Exception e){

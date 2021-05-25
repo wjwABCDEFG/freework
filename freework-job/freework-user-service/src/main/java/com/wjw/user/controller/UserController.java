@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2021-05-19
  */
 @RestController
-@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
 
@@ -41,7 +40,7 @@ public class UserController {
     @GetMapping("/getUserInfo")
     public Result getUserInfo(HttpServletRequest request){
         try {
-            String userId = JwtUtils.getMemberIdByJwtToken(request);
+            String userId = JwtUtils.getUserIdByJwtToken(request);
             User user = userService.getById(userId);
             user.setPassword("");
             return Result.ok().data(user);

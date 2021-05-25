@@ -10,6 +10,7 @@
         <module name="freework-job-service" />
         <module name="freework-upload" />
         <module name="freework-vod-service" />
+        <module name="freework-gateway" />
         <module name="freework-common" />
         <module name="freework-job-cms" />
         <module name="freework-sms-service" />

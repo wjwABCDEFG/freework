@@ -1,51 +1,51 @@
-//package com.wjw.vod;
-//
-//import com.aliyun.vod.upload.impl.UploadVideoImpl;
-//import com.aliyun.vod.upload.req.UploadVideoRequest;
-//import com.aliyun.vod.upload.resp.UploadVideoResponse;
-//import com.aliyuncs.profile.DefaultProfile;
-//import com.aliyuncs.DefaultAcsClient;
-//import com.aliyuncs.exceptions.ClientException;
-//import com.aliyuncs.vod.model.v20170321.GetPlayInfoRequest;
-//import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse;
-//import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
-//import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
-//import org.junit.Test;
-//
-//import java.util.List;
-//
-///**
-// * @author wjw
-// * @date 2021/5/9 20:26
-// */
-//public class TestVod {
-//
-//    /**
-//     * 根据id获取播放地址
-//     * @throws ClientException
-//     */
-//    @Test
-//    public void getUrlFromId() throws ClientException {
-//        // 创建初始化对象
-//        DefaultAcsClient client = TestVod.initVodClient("LTAI5tMy2iXWoR39QuqKaSbk", "cKx0YIUSpvN15hdrNkLcAzrGO332Jj");
-//
-//        // 获取request和response
-//        GetPlayInfoRequest request = new GetPlayInfoRequest();
-//        GetPlayInfoResponse response = new GetPlayInfoResponse();
-//
-//        // 向request传入id
-//        request.setVideoId("b572cf3f71424982bb862b2c3f92277d");
-//
-//        // 初始化对象传入request获取数据
-//        response = client.getAcsResponse(request);
-//        List<GetPlayInfoResponse.PlayInfo> playInfoList = response.getPlayInfoList();
-//        //播放地址
-//        for (GetPlayInfoResponse.PlayInfo playInfo : playInfoList) {
-//            System.out.print("PlayInfo.PlayURL = " + playInfo.getPlayURL() + "\n");
-//        }
-//        //Base信息
-//        System.out.print("VideoBase.Title = " + response.getVideoBase().getTitle() + "\n");
-//    }
+package com.wjw.vod;
+
+import com.aliyun.vod.upload.impl.UploadVideoImpl;
+import com.aliyun.vod.upload.req.UploadVideoRequest;
+import com.aliyun.vod.upload.resp.UploadVideoResponse;
+import com.aliyuncs.profile.DefaultProfile;
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.vod.model.v20170321.GetPlayInfoRequest;
+import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
+import org.junit.Test;
+
+import java.util.List;
+
+/**
+ * @author wjw
+ * @date 2021/5/9 20:26
+ */
+public class TestVod {
+
+    /**
+     * 根据id获取播放地址
+     * @throws ClientException
+     */
+    @Test
+    public void getUrlFromId() throws ClientException {
+        // 创建初始化对象
+        DefaultAcsClient client = TestVod.initVodClient("LTAI5tMy2iXWoR39QuqKaSbk", "cKx0YIUSpvN15hdrNkLcAzrGO332Jj");
+
+        // 获取request和response
+        GetPlayInfoRequest request = new GetPlayInfoRequest();
+        GetPlayInfoResponse response = new GetPlayInfoResponse();
+
+        // 向request传入id
+        request.setVideoId("f185e7cd57d3431790f637a03932e88d");
+
+        // 初始化对象传入request获取数据
+        response = client.getAcsResponse(request);
+        List<GetPlayInfoResponse.PlayInfo> playInfoList = response.getPlayInfoList();
+        //播放地址
+        for (GetPlayInfoResponse.PlayInfo playInfo : playInfoList) {
+            System.out.print("PlayInfo.PlayURL = " + playInfo.getPlayURL() + "\n");
+        }
+        //Base信息
+        System.out.print("VideoBase.Title = " + response.getVideoBase().getTitle() + "\n");
+    }
 //
 //    /**
 //     * 根据id获取凭证
@@ -83,21 +83,21 @@
 //        uploadFromDisk(accessKeyId, accessKeySecret, title, fileName);
 //    }
 //
-//
-//    /**
-//     * 抽取初始化方法：获得对象
-//     * @param accessKeyId
-//     * @param accessKeySecret
-//     * @return
-//     * @throws ClientException
-//     */
-//    public static DefaultAcsClient initVodClient(String accessKeyId, String accessKeySecret) throws ClientException {
-//        String regionId = "cn-shanghai";  // 点播服务接入区域
-//        DefaultProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, accessKeySecret);
-//        DefaultAcsClient client = new DefaultAcsClient(profile);
-//        return client;
-//    }
-//
+
+    /**
+     * 抽取初始化方法：获得对象
+     * @param accessKeyId
+     * @param accessKeySecret
+     * @return
+     * @throws ClientException
+     */
+    public static DefaultAcsClient initVodClient(String accessKeyId, String accessKeySecret) throws ClientException {
+        String regionId = "cn-shanghai";  // 点播服务接入区域
+        DefaultProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, accessKeySecret);
+        DefaultAcsClient client = new DefaultAcsClient(profile);
+        return client;
+    }
+
 //    private static void uploadFromDisk(String accessKeyId, String accessKeySecret, String title, String fileName) {
 //        UploadVideoRequest request = new UploadVideoRequest(accessKeyId, accessKeySecret, title, fileName);
 //        /* 可指定分片上传时每个分片的大小，默认为2M字节 */
@@ -116,4 +116,4 @@
 //            System.out.print("ErrorMessage=" + response.getMessage() + "\n");
 //        }
 //    }
-//}
+}

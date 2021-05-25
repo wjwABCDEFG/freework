@@ -28,6 +28,7 @@ public class User extends BaseDomain {
     private String company;             // 公司
     private String position;            // 职位
     private Long roleId;                // 角色
+    private Long companyId;                // 公司
 
     public Long getId() {
         return id;
@@ -139,5 +140,13 @@ public class User extends BaseDomain {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 }

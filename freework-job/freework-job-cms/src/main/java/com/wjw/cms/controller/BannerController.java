@@ -11,15 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * <p>
- *  前端控制器
- * </p>
- *
  * @author wjw
  * @since 2021-05-16
  */
 @RestController
-@CrossOrigin
 @RequestMapping("/cms/banner")
 public class BannerController {
 

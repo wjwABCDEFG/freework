@@ -18,7 +18,6 @@ import java.util.List;
  * @since 2021-05-10
  */
 @RestController
-@CrossOrigin
 @RequestMapping("/job/video")
 public class VideoController {
 

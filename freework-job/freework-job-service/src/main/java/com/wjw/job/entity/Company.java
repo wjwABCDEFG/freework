@@ -33,6 +33,8 @@ public class Company extends BaseDomain {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date registeredTime;        // 公司注册时间
     private Integer auth;               // 是否审批
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long basicHr;               // 申请人
     @TableLogic
     private Integer status;             // 可用状态
 
@@ -162,5 +164,36 @@ public class Company extends BaseDomain {
 
     public void setAuth(Integer auth) {
         this.auth = auth;
+    }
+
+    public Long getBasicHr() {
+        return basicHr;
+    }
+
+    public void setBasicHr(Long basicHr) {
+        this.basicHr = basicHr;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
+                ", industry='" + industry + '\'' +
+                ", address='" + address + '\'' +
+                ", detailAddress='" + detailAddress + '\'' +
+                ", scale='" + scale + '\'' +
+                ", logo='" + logo + '\'' +
+                ", companyDesc='" + companyDesc + '\'' +
+                ", workDay='" + workDay + '\'' +
+                ", workTime='" + workTime + '\'' +
+                ", license='" + license + '\'' +
+                ", representative='" + representative + '\'' +
+                ", registeredCapital=" + registeredCapital +
+                ", registeredTime=" + registeredTime +
+                ", auth=" + auth +
+                ", basicHr=" + basicHr +
+                ", status=" + status +
+                '}';
     }
 }

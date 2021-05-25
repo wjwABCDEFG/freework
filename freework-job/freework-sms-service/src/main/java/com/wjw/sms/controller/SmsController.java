@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit;
  * @date 2021/5/19 3:15
  */
 @RestController
-@CrossOrigin
 @RequestMapping("/sms")
 public class SmsController {
 

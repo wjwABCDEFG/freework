@@ -185,4 +185,12 @@ public class RecruitmentService extends ServiceImpl<RecruitmentMapper, Recruitme
 
         return recVOList;
     }
+
+    public List<Recruitment> findByHrId(String hrId) {
+        QueryWrapper<Recruitment> wrapper = new QueryWrapper<>();
+        wrapper.eq("hr_id", hrId);
+        wrapper.orderByDesc("id");
+        List<Recruitment> recList = recruitmentMapper.selectList(wrapper);
+        return recList;
+    }
 }

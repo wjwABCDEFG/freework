@@ -11,6 +11,7 @@
     <module>freework-job</module>
     <module>freework-common</module>
       <module>freework-upload</module>
+    <module>freework-gateway</module>
   </modules>
   <packaging>pom</packaging>
 

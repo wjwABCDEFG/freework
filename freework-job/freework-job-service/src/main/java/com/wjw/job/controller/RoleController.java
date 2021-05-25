@@ -14,7 +14,6 @@ import java.util.List;
  * @since 2021-01-21
  */
 @RestController
-@CrossOrigin
 @RequestMapping("/job/role")
 public class RoleController {
 

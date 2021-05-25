@@ -1,0 +1,49 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: gateway-service
+  redis:
+    host: 115.29.193.74
+    port: 6379
+    password: 0751@@@wjw
+    database: 0
+    timeout: 0
+    lettuce:
+      pool:
+        max-active: 20
+        max-idle: 5
+        #最大阻塞等待时间(负数表示没限制)
+        max-wait: -1
+        min-idle: 0
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      discovery:
+        locator:
+          #使用服务名发现路由
+          enabled: true
+      routes:
+        - id: user-service                  # 理论上随便起，这里写的是服务名
+          uri: lb://user-service            # 负载均衡://服务名
+          predicates:
+            - Path=/user/**               # 路径匹配
+        - id: job-service
+          uri: lb://job-service
+          predicates:
+            - Path=/job/**
+        - id: cms-service
+          uri: lb://cms-service
+          predicates:
+            - Path=/cms/**
+        - id: sms-service
+          uri: lb://sms-service
+          predicates:
+            - Path=/sms/**
+        - id: vod-service
+          uri: lb://vod-service
+          predicates:
+            - Path=/vod/**

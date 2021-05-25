@@ -5,7 +5,7 @@ server:
 spring:
   application:
     # 服务名
-    name: service-cms
+    name: cms-service
   # mysql数据库连接
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

@@ -17,7 +17,6 @@ import java.util.List;
  * @date 2021/05/06 20:04
  */
 @RestController
-@CrossOrigin
 @RequestMapping("/job/resume")
 public class ResumeController {
 

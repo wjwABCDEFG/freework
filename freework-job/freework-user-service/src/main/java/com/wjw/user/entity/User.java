@@ -65,7 +65,11 @@ public class User extends BaseDomain {
     private String position;
 
     @ApiModelProperty(value = "角色id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long roleId;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long companyId;
 
     @ApiModelProperty(value = "0可用 1不可用")
     @TableLogic
@@ -182,6 +186,14 @@ public class User extends BaseDomain {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public Integer getStatus() {

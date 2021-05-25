@@ -9,6 +9,7 @@ import com.wjw.common.utils.MailUtils;
 import com.wjw.job.constant.Progress;
 import com.wjw.job.entity.Delivery;
 import com.wjw.job.entity.User;
+import com.wjw.job.entity.vo.DeliveryVO;
 import com.wjw.job.mapper.DeliveryMapper;
 import com.wjw.job.mapper.RecruitmentMapper;
 import com.wjw.job.mapper.UserMapper;
@@ -16,6 +17,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author wjw
@@ -85,11 +90,21 @@ public class DeliveryService extends ServiceImpl<DeliveryMapper, Delivery> {
         MailUtils.sendMail(user.getEmail(), msg, mailTitle);
     }
 
-    public Page<Delivery> pageCandidatesByRecruitment(long recruitmentId, long pageNum, long pageSize) {
-        Page<Delivery> pageInfo = new Page<>(pageNum, pageSize);
-        QueryWrapper<Delivery> wrapper = new QueryWrapper<>();
-        wrapper.eq("recruitment_id", recruitmentId);
-        deliveryMapper.selectPage(pageInfo, wrapper);
-        return pageInfo;
+
+//    public Map<String, Object> pageCandidatesByUser(String hrId, long pageNum, long pageSize) {
+//        Map<String, Object> map = new HashMap<>();
+//        long start = (pageNum > 0) ? (pageNum - 1) * pageSize : 0;
+//        List<DeliveryVO> deliveryVOList = deliveryMapper.pageCandidatesByUser(hrId, start, pageSize);
+//
+//        map.put("total", pageInfo.getTotal());
+//        map.put("size", pageSize);
+//        map.put("current", pageNum);
+//        map.put("pages", pageInfo.getPages());
+//        map.put("records", res);
+//        return deliveryVOList;
+//    }
+
+    public List<DeliveryVO> findCandidatesByUser(String hrId) {
+        return deliveryMapper.findCandidatesByUser(hrId);
     }
 }
