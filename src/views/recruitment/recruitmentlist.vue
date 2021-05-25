@@ -94,7 +94,7 @@ export default {
     // 获取招聘信息
     getRecruitmentsData() {
       this.$http
-        .get(`http://localhost:9000/job/recruitment/findAll`)
+        .get(`http://localhost:9999/job/recruitment/findAll`)
         .then((resp) => {
           if (resp.data.code != 2000) {
             //操作错误，友好提示
@@ -178,7 +178,7 @@ export default {
         type: "warning",
       }).then(() => {
         this.$http
-          .delete(`http://localhost:9000/job/recruitment/remove/${id}`)
+          .delete(`http://localhost:9999/job/recruitment/remove/${id}`)
           .then((resp) => {
             if (resp.data.code != 2000) {
               //操作错误，友好提示
@@ -202,7 +202,7 @@ export default {
         return item.id;
       });
       this.$http
-        .post(`http://localhost:9000/job/recruitment/removeBatch`, rids)
+        .post(`http://localhost:9999/job/recruitment/removeBatch`, rids)
         .then((resp) => {
           if (resp.data.code != 2000) {
             //操作错误，友好提示

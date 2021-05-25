@@ -74,7 +74,6 @@
 </template>
 
 <script>
-// import { regionDataPlus, CodeToText } from "element-china-area-data";
 import { strToHuman } from "@/utils/workday";
 
 export default {
@@ -95,7 +94,7 @@ export default {
     pageCompany() {
       this.$http
         .get(
-          `http://localhost:9000/job/company/findNotAllow/${this.curPage}/${this.pageSize}`
+          `http://localhost:9999/job/company/findNotAllow/${this.curPage}/${this.pageSize}`
         )
         .then((resp) => {
           if (resp.data.code != 2000) {
@@ -114,7 +113,7 @@ export default {
     check(id, auth, companyName) {
       let company = { id: id, auth: auth };
       this.$http
-        .post(`http://localhost:9000/job/company/update`, company)
+        .post(`http://localhost:9999/job/company/check`, company)
         .then((resp) => {
           if (resp.data.code != 2000) {
             //操作错误，友好提示
@@ -140,7 +139,7 @@ export default {
     //     type: "warning",
     //   }).then(() => {
     //     this.$http
-    //       .delete(`http://localhost:9000/job/company/remove/${id}`)
+    //       .delete(`http://localhost:9999/job/company/remove/${id}`)
     //       .then((resp) => {
     //         // console.log(resp.data);
     //         if (resp.data.code != 2000) {
@@ -162,7 +161,7 @@ export default {
     // 获取行业静态json
     // getIndustry() {
     //   this.$http
-    //     .get(`http://localhost:9000/job/company/static`, {
+    //     .get(`http://localhost:9999/job/company/static`, {
     //       params: {
     //         fileName: "industry.json",
     //       },

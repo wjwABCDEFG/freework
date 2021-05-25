@@ -1,5 +1,5 @@
 // export function getIndustryAndPosition() {
-//     this.$http.get(`http://localhost:9000/job/company/static`, {
+//     this.$http.get(`http://localhost:9999/job/company/static`, {
 //         params: {
 //             fileName: "industry.json"
 //         }

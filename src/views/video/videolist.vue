@@ -43,7 +43,7 @@
             :before-remove="beforeVodRemove"
             :on-exceed="handleUploadExceed"
             :file-list="fileList"
-            action="http://localhost:9004/vod/video/upload"
+            action="http://localhost:9999/vod/video/upload"
             :limit="1"
             class="upload-demo"
           >
@@ -87,7 +87,7 @@ export default {
   methods: {
     // 获取视频列表
     getVideoList() {
-      this.$http.get(`http://localhost:9000/job/video/findAll`).then((resp) => {
+      this.$http.get(`http://localhost:9999/job/video/findAll`).then((resp) => {
         if (resp.data.code != 2000) {
           //操作错误，友好提示
           this.$message({
@@ -166,7 +166,7 @@ export default {
     handleVodRemove(file, fileList) {
       this.$http
         .delete(
-          `http://localhost:9004/vod/video/remove/${this.video.videoSourceId}`
+          `http://localhost:9999/vod/video/remove/${this.video.videoSourceId}`
         )
         .then((resp) => {
           if (resp.data.code != 2000) {
@@ -189,7 +189,7 @@ export default {
     // 保存视频
     saveVideo() {
       this.$http
-        .post(`http://localhost:9000/job/video/add`, this.video)
+        .post(`http://localhost:9999/job/video/add`, this.video)
         .then((resp) => {
           if (resp.data.code != 2000) {
             //操作错误，友好提示
@@ -215,7 +215,7 @@ export default {
         type: "warning",
       }).then(() => {
         this.$http
-          .delete(`http://localhost:9000/job/video/remove/${id}`)
+          .delete(`http://localhost:9999/job/video/remove/${id}`)
           .then((resp) => {
             if (resp.data.code != 2000) {
               //操作错误，友好提示

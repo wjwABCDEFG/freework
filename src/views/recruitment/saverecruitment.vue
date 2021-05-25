@@ -268,7 +268,7 @@ export default {
     // 获取公司列表
     getCompanyList() {
       this.$http
-        .get(`http://localhost:9000/job/company/findNameAndId`)
+        .get(`http://localhost:9999/job/company/findNameAndId`)
         .then((resp) => {
           if (resp.data.code != 2000) {
             //操作错误，友好提示
@@ -288,7 +288,7 @@ export default {
     // 请求行业json
     getIndustry() {
       this.$http
-        .get(`http://localhost:9000/job/company/static`, {
+        .get(`http://localhost:9999/job/company/static`, {
           params: {
             fileName: "industry.json",
           },
@@ -363,7 +363,7 @@ export default {
         }
         this.$http
           .post(
-            `http://localhost:9000/job/recruitment/add`,
+            `http://localhost:9999/job/recruitment/add`,
             this.recruitmentInfo
           )
           .then((resp) => {

@@ -166,7 +166,7 @@ export default {
     // 查询
     getCompanyInfo(id) {
       this.$http
-        .post(`http://localhost:9000/job/company/findById/${id}`)
+        .post(`http://localhost:9999/job/company/findById/${id}`)
         .then((resp) => {
           // console.log(resp.data);
           if (resp.data.code != 2000) {
@@ -186,7 +186,7 @@ export default {
     // 修改
     update() {
       this.$http
-        .post(`http://localhost:9000/job/company/update`, this.companyInfo)
+        .post(`http://localhost:9999/job/company/update`, this.companyInfo)
         .then((resp) => {
           if (resp.data.code != 2000) {
             //操作错误，友好提示
@@ -212,7 +212,7 @@ export default {
       this.companyInfo.auth = 1;
       // console.log(this.companyInfo);
       this.$http
-        .post(`http://localhost:9000/job/company/add`, this.companyInfo)
+        .post(`http://localhost:9999/job/company/add`, this.companyInfo)
         .then((resp) => {
           // console.log(resp.data);
           if (resp.data.code != 2000) {
@@ -239,7 +239,7 @@ export default {
     // 请求行业json
     getIndustry() {
       this.$http
-        .get(`http://localhost:9000/job/company/static`, {
+        .get(`http://localhost:9999/job/company/static`, {
           params: {
             fileName: "industry.json",
           },

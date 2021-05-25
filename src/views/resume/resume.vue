@@ -735,7 +735,7 @@ export default {
     // 保存简历
     save() {
       this.$http
-        .post(`http://localhost:9000/job/resume/add`, {
+        .post(`http://localhost:9999/job/resume/add`, {
           userId: "1352149079043358725", // TODO 改为当前用户id
           resumeName: this.resumeName,
           resumeData: JSON.stringify(this.resumeData),
@@ -758,7 +758,7 @@ export default {
     // 更新
     update() {
       this.$http
-        .post(`http://localhost:9000/job/resume/update`, {
+        .post(`http://localhost:9999/job/resume/update`, {
           id: this.resumeId,
           userId: "1352149079043358725", // TODO 改为当前用户id
           resumeName: this.resumeName,
@@ -782,7 +782,7 @@ export default {
     // 根据id查询简历
     getResume(id) {
       this.$http
-        .get(`http://localhost:9000/job/resume/findById/${id}`)
+        .get(`http://localhost:9999/job/resume/findById/${id}`)
         .then((resp) => {
           if (resp.data.code != 2000) {
             //操作错误，友好提示

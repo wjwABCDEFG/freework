@@ -86,7 +86,7 @@ export default {
     pageCompany() {
       this.$http
         .post(
-          `http://localhost:9000/job/company/findPage/${this.curPage}/${this.pageSize}`,
+          `http://localhost:9999/job/company/findPage/${this.curPage}/${this.pageSize}`,
           this.companyQuery
         )
         .then((resp) => {
@@ -111,7 +111,7 @@ export default {
         type: "warning",
       }).then(() => {
         this.$http
-          .delete(`http://localhost:9000/job/company/remove/${id}`)
+          .delete(`http://localhost:9999/job/company/remove/${id}`)
           .then((resp) => {
             // console.log(resp.data);
             if (resp.data.code != 2000) {
@@ -133,7 +133,7 @@ export default {
     // 获取行业静态json
     getIndustry() {
       this.$http
-        .get(`http://localhost:9000/job/company/static`, {
+        .get(`http://localhost:9999/job/company/static`, {
           params: {
             fileName: "industry.json",
           },
