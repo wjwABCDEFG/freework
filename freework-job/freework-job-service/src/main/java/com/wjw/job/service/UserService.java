@@ -3,10 +3,14 @@ package com.wjw.job.service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wjw.common.enums.ErrCodeEnum;
 import com.wjw.common.exception.FreeworkException;
+import com.wjw.common.utils.MD5;
 import com.wjw.job.entity.Company;
 import com.wjw.job.entity.User;
+import com.wjw.job.entity.vo.UserInfoVO;
 import com.wjw.job.mapper.CompanyMapper;
 import com.wjw.job.mapper.UserMapper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,5 +43,24 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         hr.setCompany(companyName);
         int i = userMapper.updateById(hr);
         return i > 0;
+    }
+
+    public void updateUser(UserInfoVO userInfoVO) {
+        User store = userMapper.selectById(userInfoVO.getId());
+        String newPassword;
+        if (!StringUtils.isBlank(userInfoVO.getOldPassword()) && !StringUtils.isBlank(userInfoVO.getPassword())){
+            //试图修改密码
+            if (!MD5.encrypt(userInfoVO.getOldPassword()).equals(store.getPassword())){
+                throw new FreeworkException(ErrCodeEnum.LOGINERR);
+            }
+            newPassword = MD5.encrypt(userInfoVO.getPassword());
+        }else{
+            // 不修改密码
+            newPassword = store.getPassword();
+        }
+        User user = new User();
+        BeanUtils.copyProperties(userInfoVO, user);
+        user.setPassword(newPassword);
+        userMapper.updateById(user);
     }
 }

@@ -33,6 +33,12 @@ public class BannerController {
         return Result.ok();
     }
 
+    @PostMapping("/removeBatch")
+    public Result removeBatch(@RequestBody List<Long> rids){
+        bannerService.removeByIds(rids);
+        return Result.ok();
+    }
+
     @PostMapping("/update")
     public Result updateBanner(@RequestBody Banner banner){
         bannerService.updateBanner(banner);
@@ -47,7 +53,7 @@ public class BannerController {
         return Result.ok().data(pageInfo);
     }
 
-    @PostMapping("/findById/{id}")
+    @GetMapping("/findById/{id}")
     public Result findBannerById(@PathVariable Long id){
         Banner company = bannerService.getById(id);
         return Result.ok().data(company);
@@ -57,6 +63,13 @@ public class BannerController {
     public Result findAll(){
         List<Banner> banners = bannerService.findAll();
         return Result.ok().data(banners);
+    }
+
+    @PostMapping("/updateSort/{id}/{direct}")
+    public Result updateSort(@PathVariable Long id,
+                             @PathVariable int direct){
+        bannerService.updateSort(id, direct);
+        return Result.ok();
     }
 }
 

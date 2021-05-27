@@ -18,10 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 /**
- * <p>
- *  服务类
- * </p>
- *
  * @author wjw
  * @since 2021-05-19
  */

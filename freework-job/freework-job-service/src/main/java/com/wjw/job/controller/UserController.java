@@ -3,6 +3,8 @@ package com.wjw.job.controller;
 import com.wjw.common.entity.Result;
 import com.wjw.common.enums.ErrCodeEnum;
 import com.wjw.job.entity.Company;
+import com.wjw.job.entity.User;
+import com.wjw.job.entity.vo.UserInfoVO;
 import com.wjw.job.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +39,17 @@ public class UserController {
         else {
             return new Result(ErrCodeEnum.JOINHRERR.getErrCode(), ErrCodeEnum.JOINHRERR.getErrMsg());
         }
+    }
+
+    @PostMapping("/updateUser")
+    public Result updateUser(@RequestBody UserInfoVO userInfoVO){
+        userService.updateUser(userInfoVO);
+        return Result.ok();
+    }
+
+    @PostMapping("/findById/{id}")
+    public Result findById(@PathVariable String id){
+        User user = userService.getById(id);
+        return Result.ok().data(user);
     }
 }

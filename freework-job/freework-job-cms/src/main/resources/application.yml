@@ -6,6 +6,8 @@ spring:
   application:
     # 服务名
     name: cms-service
+  profiles:
+    active: dev   #TODO 发布的时候修改环境
   # mysql数据库连接
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

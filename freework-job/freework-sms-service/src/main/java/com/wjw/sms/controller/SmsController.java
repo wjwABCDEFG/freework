@@ -39,10 +39,11 @@ public class SmsController {
         // 生成随机数
         code = RandomUtil.getFourBitRandom();
 
-//        boolean isSend = smsService.send(phone, code);
-        boolean isSend = true;
+        boolean isSend = smsService.send(phone, code);
+//        boolean isSend = true;
         if(isSend) {
             redisTemplate.opsForValue().set(phone, code,5, TimeUnit.MINUTES);
+            System.out.println("短信发送成功，验证码是：" + code);
             return Result.ok();
         } else {
             return Result.error().msg("发送短信失败");
