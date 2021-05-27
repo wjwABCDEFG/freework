@@ -56,6 +56,21 @@ export const constantRoutes = [
   },
 
   {
+    path: '/banner',
+    component: Layout,
+    name: 'Banner',
+    meta: { title: 'banner管理', icon: 'el-icon-s-flag' },
+    children: [
+      {
+        path: 'list',
+        name: 'List',
+        component: () => import('@/views/banner/bannerlist'),
+        meta: { title: 'banner管理', icon: 'el-icon-s-flag' }
+      },
+    ]
+  },
+
+  {
     path: '/company',                                       // url地址栏中的路径
     component: Layout,                                      // 
     redirect: '/company/list',                              // 默认重定向到二级url地址栏中的路径
@@ -129,7 +144,7 @@ export const constantRoutes = [
     path: '/recruitment',
     component: Layout,
     name: 'Recruitment',
-    meta: { title: '招聘信息管理', icon: 'el-icon-s-flag' },
+    meta: { title: '招聘信息管理', icon: 'el-icon-s-claim' },
     children: [
       {
         path: 'list',

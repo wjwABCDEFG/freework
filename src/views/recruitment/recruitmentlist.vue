@@ -140,36 +140,6 @@ export default {
     closeDetail(){
       this.detailVisible = false
     },
-    // 打开抽屉
-    // showDrawer(id) {
-    //   this.drawer = true;
-    //   this.selectedId = id;
-    //   this.getRecruitmentInfo(id);
-    // },
-    // // 关闭抽屉
-    // handleClose(done) {
-    //   if (this.loading) {
-    //     return;
-    //   }
-    //   this.$confirm("确定要提交表单吗？")
-    //     .then((_) => {
-    //       this.loading = true;
-    //       this.timer = setTimeout(() => {
-    //         done(); // 框架封装的关闭抽屉方法
-    //         // 动画关闭需要一定的时间，心理作用
-    //         setTimeout(() => {
-    //           this.loading = false;
-    //         }, 400);
-    //       }, 2000);
-    //     })
-    //     .catch((_) => {});
-    // },
-    // 取消提交表单
-    // cancelForm() {
-    //   this.loading = false;
-    //   this.drawer = false;
-    //   clearTimeout(this.timer);
-    // },
     // 删除招聘信息
     deleteRec(id) {
       this.$confirm("确认删除该条招聘信息, 是否继续?", "提示", {
