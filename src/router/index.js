@@ -116,13 +116,13 @@ export const constantRoutes = [
         path: 'list',
         name: 'List',
         component: () => import('@/views/user/userlist'),
-        meta: { title: '用户管理', icon: 'el-icon-user-solid' }
+        meta: { title: '用户管理', icon: 'el-icon-user' }
       },
       {
         path: 'resumelist',
         name: 'Resumelist',
         component: () => import('@/views/resume/resumelist'),
-        meta: { title: '简历列表', icon: 'el-icon-user-solid' }
+        meta: { title: '简历列表', icon: 'el-icon-document-copy' }
       },
       {
         path: 'resume',
@@ -176,38 +176,38 @@ export const constantRoutes = [
     ]
   },
 
-  {
-    path: '/statistic',
-    component: Layout,
-    redirect: '/statistic/userdata',
-    name: 'Statistic',
-    meta: { title: '数据统计', icon: 'nested' },
-    children: [
-      {
-        path: 'userdata',
-        name: 'UserData',
-        //component: () => import('@/views/table/index'),
-        meta: { title: '用户统计', icon: 'el-icon-s-data' }
-      },
-      {
-        path: 'companydata',
-        name: 'CompanyData',
-        //component: () => import('@/views/table/index'),
-        meta: { title: '企业统计', icon: 'el-icon-s-data' }
-      },
-      {
-        path: 'resumedata',
-        name: 'ResumeData',
-        //component: () => import('@/views/table/index'),
-        meta: { title: '简历统计', icon: 'el-icon-s-data' }
-      },
-    ]
-  },
+  // {
+  //   path: '/statistic',
+  //   component: Layout,
+  //   redirect: '/statistic/userdata',
+  //   name: 'Statistic',
+  //   meta: { title: '数据统计', icon: 'nested' },
+  //   children: [
+  //     {
+  //       path: 'userdata',
+  //       name: 'UserData',
+  //       //component: () => import('@/views/table/index'),
+  //       meta: { title: '用户统计', icon: 'el-icon-s-data' }
+  //     },
+  //     {
+  //       path: 'companydata',
+  //       name: 'CompanyData',
+  //       //component: () => import('@/views/table/index'),
+  //       meta: { title: '企业统计', icon: 'el-icon-s-data' }
+  //     },
+  //     {
+  //       path: 'resumedata',
+  //       name: 'ResumeData',
+  //       //component: () => import('@/views/table/index'),
+  //       meta: { title: '简历统计', icon: 'el-icon-s-data' }
+  //     },
+  //   ]
+  // },
 
   {
     path: '/system',
     component: Layout,
-    redirect: '/system/log',
+    redirect: '/system/operationlog',
     name: 'System',
     meta: { title: '系统管理', icon: 'el-icon-stopwatch' },
     children: [
@@ -218,10 +218,10 @@ export const constantRoutes = [
         meta: { title: '操作日志', icon: 'el-icon-s-platform' }
       },
       {
-        path: 'script',
-        name: 'Script',
-        // component: () => import('@/views/table/index'),
-        meta: { title: '脚本', icon: 'el-icon-s-promotion' }
+        path: 'serviceListener',
+        name: 'ServiceListener',
+        component: () => import('@/views/system/serviceListener'),
+        meta: { title: '服务监控', icon: 'el-icon-s-promotion' }
       },
       {
         path: 'errlog',
