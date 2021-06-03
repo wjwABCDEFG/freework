@@ -1,10 +1,13 @@
 package com.wjw.job.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wjw.common.entity.Result;
 import com.wjw.common.enums.ErrCodeEnum;
 import com.wjw.job.entity.Company;
 import com.wjw.job.entity.User;
+import com.wjw.job.entity.vo.CompanyQuery;
 import com.wjw.job.entity.vo.UserInfoVO;
+import com.wjw.job.entity.vo.UserQuery;
 import com.wjw.job.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +54,20 @@ public class UserController {
     public Result findById(@PathVariable String id){
         User user = userService.getById(id);
         return Result.ok().data(user);
+    }
+
+    @DeleteMapping("/remove/{id}")
+    public Result delUser(@PathVariable Long id){
+        userService.removeById(id);
+        return Result.ok();
+    }
+
+    @PostMapping("/findPage/{pageNum}/{pageSize}")
+    public Result pageUser(@PathVariable long pageNum,
+                              @PathVariable long pageSize,
+                              @RequestBody(required = false) UserQuery userQuery){
+        Page<User> pageInfo = new Page<>(pageNum, pageSize);
+        userService.pageQuery(pageInfo, userQuery);
+        return Result.ok().data(pageInfo);
     }
 }

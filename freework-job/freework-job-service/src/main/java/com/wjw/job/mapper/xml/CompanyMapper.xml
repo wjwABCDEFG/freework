@@ -5,7 +5,7 @@
 
         <select id="findByName" resultType="com.wjw.job.entity.Company" parameterType="java.lang.String">
             SELECT c.* FROM tb_company c
-            WHERE c.company_name = #{companyName}
+            WHERE c.company_name LIKE #{companyName}
         </select>
 
 </mapper>

@@ -127,8 +127,8 @@ public class RecruitmentService extends ServiceImpl<RecruitmentMapper, Recruitme
                 }
             }
             if (StringUtils.isNotEmpty(address)) wrapper.like("address", address);
-            if (StringUtils.isNotEmpty(industry)) wrapper.eq("position", industry);
-            if (StringUtils.isNotEmpty(position)) wrapper.eq("position", position);
+            if (StringUtils.isNotEmpty(industry)) wrapper.like("position", industry);
+            if (StringUtils.isNotEmpty(position)) wrapper.like("position", position);
             recruitmentMapper.selectPage(pageInfo, wrapper);
         }
 

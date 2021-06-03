@@ -21,9 +21,10 @@ spring:
         # nacos服务地址
         server-addr: 127.0.0.1:8848
   redis:
-    host: 115.29.193.74
+#    host: 115.29.193.74
+#    password: 0751@@@wjw
+    host: 127.0.0.1
     port: 6379
-    password: 0751@@@wjw
     database: 0
     timeout: 0
     lettuce:

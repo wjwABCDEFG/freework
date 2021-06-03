@@ -39,14 +39,14 @@ public class MpConfig implements MetaObjectHandler {
     }
 
     // sql性能分析，设置 dev test 环境开启，线上环境不推荐开启
-    @Bean
-    @Profile({"dev","test"})
-    public PerformanceInterceptor performanceInterceptor() {
-        PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
-        performanceInterceptor.setMaxTime(1000);//ms，超过此处设置的ms则sql不执行
-        performanceInterceptor.setFormat(true);
-        return performanceInterceptor;
-    }
+//    @Bean
+//    @Profile({"dev","test"})
+//    public PerformanceInterceptor performanceInterceptor() {
+//        PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
+//        performanceInterceptor.setMaxTime(1000);//ms，超过此处设置的ms则sql不执行
+//        performanceInterceptor.setFormat(true);
+//        return performanceInterceptor;
+//    }
 
     //分页插件
     @Bean

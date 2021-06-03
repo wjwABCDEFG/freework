@@ -1,12 +1,17 @@
 package com.wjw.job.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wjw.common.enums.ErrCodeEnum;
 import com.wjw.common.exception.FreeworkException;
 import com.wjw.common.utils.MD5;
+import com.wjw.job.constant.CompanyAuth;
 import com.wjw.job.entity.Company;
 import com.wjw.job.entity.User;
+import com.wjw.job.entity.vo.CompanyQuery;
 import com.wjw.job.entity.vo.UserInfoVO;
+import com.wjw.job.entity.vo.UserQuery;
 import com.wjw.job.mapper.CompanyMapper;
 import com.wjw.job.mapper.UserMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -62,5 +67,22 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         BeanUtils.copyProperties(userInfoVO, user);
         user.setPassword(newPassword);
         userMapper.updateById(user);
+    }
+
+    public void pageQuery(Page<User> pageInfo, UserQuery userQuery){
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+
+        if (userQuery == null){
+            userMapper.selectPage(pageInfo, wrapper);
+            return ;
+        }
+
+        String userName = userQuery.getName();
+        String phone = userQuery.getPhone();
+        if (StringUtils.isNotEmpty(userName)) wrapper.like("name", userName);
+        if (StringUtils.isNotEmpty(phone)) wrapper.like("phone", phone);
+
+
+        userMapper.selectPage(pageInfo, wrapper);
     }
 }

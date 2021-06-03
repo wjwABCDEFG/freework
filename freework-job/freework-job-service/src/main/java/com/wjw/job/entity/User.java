@@ -2,6 +2,7 @@ package com.wjw.job.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -28,7 +29,9 @@ public class User extends BaseDomain {
     private String company;             // 公司
     private String position;            // 职位
     private Long roleId;                // 角色
-    private Long companyId;                // 公司
+    private Long companyId;             // 公司
+    @TableLogic
+    private Integer status;
 
     public Long getId() {
         return id;
@@ -148,5 +151,13 @@ public class User extends BaseDomain {
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

@@ -5,9 +5,10 @@ spring:
   application:
     name: gateway-service
   redis:
-    host: 115.29.193.74
+    #    host: 115.29.193.74
+    #    password: 0751@@@wjw
+    host: 127.0.0.1
     port: 6379
-    password: 0751@@@wjw
     database: 0
     timeout: 0
     lettuce:
