@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+        "@/*": ["src/*"]  // 配置@符号为src目录
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
